@@ -1,0 +1,12 @@
+ENGLISH.DL1
+START
+SAVE
+LOAD
+EXIT
+%.1f%% GALLERY
+SAVE IMAGE
+Start new game?
+OPTIONS
+voice
+music
+No data

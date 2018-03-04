@@ -1,0 +1,34 @@
+CC = sh-elf-gcc
+CXX = sh-elf-g++
+AR = sh-elf-ar
+
+TARGET = libsmpeg-dc.a
+
+#OPTFLAGS=-O3 -fomit-frame-pointer -DDREAMCAST
+OPTFLAGS=-O3 -fomit-frame-pointer -DDREAMCAST $(KOS_CFLAGS)
+
+CFLAGS=$(OPTFLAGS) -I"/usr/local/dc/kos/kos-ports/include" -I"/usr/local/dc/kos/kos-ports/include/SDL" -I. -DDREAMCAST
+CXXFLAGS=$(OPTFLAGS) -I"/usr/local/dc/kos/kos-ports/include" -I"/usr/local/dc/kos/kos-ports/include/SDL" -I. -DDREAMCAST
+
+#SRCS = \
+#	MPEGsystem.cpp MPEGstream.cpp MPEG.cpp MPEGfilter.c MPEGlist.cpp MPEGring.cpp \
+#	audio/mpegtoraw.cpp audio/mpegtable.cpp audio/mpeglayer3.cpp audio/mpeglayer2.cpp audio/mpeglayer1.cpp audio/MPEGaudio.cpp audio/hufftable.cpp audio/filter.cpp audio/filter_2.cpp audio/bitwindow.cpp \
+#	video/video.cpp video/vhar128.cpp video/util.cpp video/readfile.cpp video/parseblock.cpp video/MPEGvideo.cpp video/motionvec.cpp video/jrevdct.cpp video/gdith.cpp video/decoders.cpp video/floatdct.cpp \
+#	smpeg.cpp \
+
+SRCS = \
+	MPEGsystem.o MPEGstream.o MPEG.o MPEGfilter.o MPEGlist.o MPEGring.o \
+	audio/mpegtoraw.o audio/mpegtable.o audio/mpeglayer3.o audio/mpeglayer2.o audio/mpeglayer1.o audio/MPEGaudio.o audio/hufftable.o audio/filter.o audio/filter_2.o audio/bitwindow.o \
+	video/video.o video/vhar128.o video/util.o video/readfile.o video/parseblock.o video/MPEGvideo.o video/motionvec.o video/jrevdct.o video/gdith.o video/decoders.o video/floatdct.o \
+	smpeg.o \
+
+OBJS = $(SRCS:.c=.o)
+
+$(TARGET): copy_config \
+	$(OBJS)
+	$(AR) rcs $(TARGET) $(OBJS) 
+
+copy_config:
+
+clean:
+	rm -f $(OBJS)

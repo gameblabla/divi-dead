@@ -1,0 +1,363 @@
+In file included from MPEGsystem.cpp:19:
+MPEGsystem.h:9:17: SDL.h: No such file or directory
+MPEGsystem.h:10:24: SDL_thread.h: No such file or directory
+In file included from MPEGsystem.cpp:19:
+MPEGsystem.h:26: error: expected `)' before '*' token
+MPEGsystem.h:32: error: `Uint32' does not name a type
+MPEGsystem.h:40: error: `Uint32' does not name a type
+MPEGsystem.h:54: error: expected `;' before '(' token
+MPEGsystem.h:57: error: `Uint8' does not name a type
+MPEGsystem.h:79: error: `Uint8' does not name a type
+MPEGsystem.h:87: error: ISO C++ forbids declaration of `SDL_RWops' with no type
+MPEGsystem.h:87: error: expected `;' before '*' token
+MPEGsystem.h:89: error: ISO C++ forbids declaration of `SDL_Thread' with no type
+MPEGsystem.h:89: error: expected `;' before '*' token
+MPEGsystem.h:94: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGsystem.h:94: error: expected `;' before '*' token
+MPEGsystem.h:95: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGsystem.h:95: error: expected `;' before '*' token
+MPEGsystem.h:97: error: `Uint32' does not name a type
+MPEGsystem.h:98: error: `Uint32' does not name a type
+MPEGsystem.h:100: error: ISO C++ forbids declaration of `SDL_semaphore' with no type
+MPEGsystem.h:100: error: expected `;' before '*' token
+MPEGsystem.h:101: error: ISO C++ forbids declaration of `SDL_mutex' with no type
+MPEGsystem.h:101: error: expected `;' before '*' token
+In file included from MPEGsystem.cpp:20:
+MPEGstream.h:25:23: SDL_types.h: No such file or directory
+In file included from MPEGaction.h:28,
+                 from MPEGvideo.h:30,
+                 from MPEGstream.h:27,
+                 from MPEGsystem.cpp:20:
+MPEGfilter.h:31: error: ISO C++ forbids declaration of `Uint16' with no type
+MPEGfilter.h:31: error: expected `;' before '*' token
+MPEGfilter.h:32: error: ISO C++ forbids declaration of `Uint16' with no type
+MPEGfilter.h:32: error: expected `;' before '*' token
+MPEGfilter.h:39: error: typedef `SMPEG_FilterCallback' is initialized (use __typeof__ instead)
+MPEGfilter.h:39: error: `SDL_Overlay' was not declared in this scope
+MPEGfilter.h:39: error: `dest' was not declared in this scope
+MPEGfilter.h:39: error: `SDL_Overlay' was not declared in this scope
+MPEGfilter.h:39: error: `source' was not declared in this scope
+MPEGfilter.h:39: error: `SDL_Rect' was not declared in this scope
+MPEGfilter.h:39: error: `region' was not declared in this scope
+MPEGfilter.h:39: error: expected primary-expression before '*' token
+MPEGfilter.h:39: error: `filter_info' was not declared in this scope
+MPEGfilter.h:39: error: expected primary-expression before "void"
+MPEGfilter.h:44: error: `Uint32' does not name a type
+MPEGfilter.h:56: error: `DECLSPEC' does not name a type
+MPEGfilter.h:59: error: `DECLSPEC' does not name a type
+MPEGfilter.h:62: error: `DECLSPEC' does not name a type
+In file included from MPEGvideo.h:30,
+                 from MPEGstream.h:27,
+                 from MPEGsystem.cpp:20:
+MPEGaction.h:100: error: typedef `MPEG_DisplayCallback' is initialized (use __typeof__ instead)
+MPEGaction.h:100: error: `SDL_Surface' was not declared in this scope
+MPEGaction.h:100: error: `dst' was not declared in this scope
+MPEGaction.h:100: error: expected primary-expression before "int"
+MPEGaction.h:100: error: expected primary-expression before "int"
+MPEGaction.h:101: error: expected primary-expression before "unsigned"
+MPEGaction.h:101: error: expected primary-expression before "unsigned"
+MPEGaction.h:120: error: `SDL_Surface' has not been declared
+MPEGaction.h:120: error: `SDL_mutex' has not been declared
+MPEGaction.h:121: error: ISO C++ forbids declaration of `dst' with no type
+MPEGaction.h:121: error: ISO C++ forbids declaration of `lock' with no type
+MPEGaction.h:126: error: `SDL_Surface' has not been declared
+MPEGaction.h:126: error: ISO C++ forbids declaration of `dst' with no type
+In file included from MPEGstream.h:27,
+                 from MPEGsystem.cpp:20:
+MPEGvideo.h:66: error: `SDL_Surface' has not been declared
+MPEGvideo.h:66: error: `SDL_mutex' has not been declared
+MPEGvideo.h:67: error: ISO C++ forbids declaration of `dst' with no type
+MPEGvideo.h:67: error: ISO C++ forbids declaration of `lock' with no type
+MPEGvideo.h:72: error: `SDL_Surface' has not been declared
+MPEGvideo.h:72: error: ISO C++ forbids declaration of `dst' with no type
+MPEGvideo.h:89: error: ISO C++ forbids declaration of `SDL_Surface' with no type
+MPEGvideo.h:89: error: expected `;' before '*' token
+MPEGvideo.h:90: error: ISO C++ forbids declaration of `SDL_mutex' with no type
+MPEGvideo.h:90: error: expected `;' before '*' token
+MPEGvideo.h:91: error: ISO C++ forbids declaration of `SDL_Thread' with no type
+MPEGvideo.h:91: error: expected `;' before '*' token
+MPEGvideo.h:99: error: `SDL_Rect' does not name a type
+MPEGvideo.h:100: error: `SDL_Rect' does not name a type
+MPEGvideo.h:101: error: ISO C++ forbids declaration of `SDL_Overlay' with no type
+MPEGvideo.h:101: error: expected `;' before '*' token
+MPEGvideo.h:104: error: ISO C++ forbids declaration of `SDL_mutex' with no type
+MPEGvideo.h:104: error: expected `;' before '*' token
+In file included from MPEGstream.h:28,
+                 from MPEGsystem.cpp:20:
+MPEGaudio.h:28:28: SDL/SDL_endian.h: No such file or directory
+In file included from MPEGstream.h:28,
+                 from MPEGsystem.cpp:20:
+MPEGaudio.h:36: error: `Uint8' has not been declared
+MPEGaudio.h:36: error: ISO C++ forbids declaration of `stream' with no type
+MPEGaudio.h:176: error: `SDL_AudioSpec' has not been declared
+MPEGaudio.h:176: error: ISO C++ forbids declaration of `wanted' with no type
+MPEGaudio.h:180: error: expected `,' or `...' before '*' token
+MPEGaudio.h:180: error: ISO C++ forbids declaration of `SDL_AudioSpec' with no type
+MPEGaudio.h:188: error: `Uint32' does not name a type
+MPEGaudio.h:189: error: `Uint32' does not name a type
+MPEGaudio.h:260: error: `Uint8' does not name a type
+MPEGaudio.h:261: error: `Uint32' does not name a type
+MPEGaudio.h:348: error: ISO C++ forbids declaration of `Sint16' with no type
+MPEGaudio.h:348: error: expected `;' before '*' token
+MPEGaudio.h:352: error: `Sint16' does not name a type
+MPEGaudio.h:372: error: `Uint8' has not been declared
+MPEGaudio.h:372: error: ISO C++ forbids declaration of `stream' with no type
+MPEGaudio.h:373: error: `Uint8' has not been declared
+MPEGaudio.h:373: error: ISO C++ forbids declaration of `stream' with no type
+MPEGaudio.h: In member function `void MPEGaudio::clearrawdata()':
+MPEGaudio.h:359: error: `rawdata' undeclared (first use this function)
+MPEGaudio.h:359: error: (Each undeclared identifier is reported only once for each function it appears in.)
+MPEGaudio.h: In member function `void MPEGaudio::putraw(short int)':
+MPEGaudio.h:361: error: `rawdata' undeclared (first use this function)
+MPEGaudio.h: At global scope:
+MPEGaudio.h:380: error: `Uint8' has not been declared
+MPEGaudio.h:380: error: ISO C++ forbids declaration of `stream' with no type
+MPEGaudio.h:381: error: `Uint8' has not been declared
+MPEGaudio.h:381: error: ISO C++ forbids declaration of `stream' with no type
+In file included from MPEGstream.h:29,
+                 from MPEGsystem.cpp:20:
+MPEGlist.h:17: error: expected `;' before '(' token
+MPEGlist.h:28: error: `Uint32' does not name a type
+MPEGlist.h:34: error: `Uint32' does not name a type
+MPEGlist.h:41: error: `Uint32' does not name a type
+MPEGlist.h:42: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGlist.h:42: error: expected `;' before '*' token
+MPEGlist.h:43: error: `Uint32' does not name a type
+MPEGlist.h: In member function `void* MPEGlist::Buffer()':
+MPEGlist.h:26: error: `data' undeclared (first use this function)
+In file included from MPEGsystem.cpp:20:
+MPEGstream.h: At global scope:
+MPEGstream.h:39: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGstream.h:39: error: expected `;' before '*' token
+MPEGstream.h:40: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGstream.h:40: error: expected `;' before '*' token
+MPEGstream.h:46: error: `Uint8' has not been declared
+MPEGstream.h:46: error: ISO C++ forbids declaration of `Streamid' with no type
+MPEGstream.h:68: error: `Uint32' does not name a type
+MPEGstream.h:77: error: `Uint8' has not been declared
+MPEGstream.h:77: error: `Uint32' has not been declared
+MPEGstream.h:77: error: ISO C++ forbids declaration of `data' with no type
+MPEGstream.h:77: error: ISO C++ forbids declaration of `size' with no type
+MPEGstream.h:88: error: `Uint32' does not name a type
+MPEGstream.h:90: error: `Uint8' does not name a type
+MPEGstream.h:93: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGstream.h:93: error: expected `;' before '*' token
+MPEGstream.h:94: error: ISO C++ forbids declaration of `Uint8' with no type
+MPEGstream.h:94: error: expected `;' before '*' token
+MPEGstream.h:96: error: `Uint32' does not name a type
+MPEGstream.h:103: error: ISO C++ forbids declaration of `SDL_mutex' with no type
+MPEGstream.h:103: error: expected `;' before '*' token
+MPEGstream.h:110: error: `Uint32' does not name a type
+MPEGsystem.cpp:28: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:28: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:29: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:29: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:30: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:30: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:31: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:31: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:32: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:32: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:33: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:33: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:34: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:34: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:35: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:35: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:36: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:36: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:37: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:37: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:38: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:38: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:39: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:39: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:40: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:40: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:41: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:41: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:42: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:42: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:43: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:43: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:44: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:44: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:45: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:45: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:46: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:46: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:47: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:47: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:48: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:48: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:49: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:49: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:50: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:50: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:51: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:51: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:52: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:52: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:53: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:53: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:54: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:54: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:55: error: expected constructor, destructor, or type conversion before "const"
+MPEGsystem.cpp:55: error: expected `,' or `;' before "const"
+MPEGsystem.cpp:109: error: `Match4' declared as an `inline' variable
+MPEGsystem.cpp:109: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:109: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:109: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:110: error: initializer expression list treated as compound expression
+MPEGsystem.cpp:110: error: expected `,' or `;' before '{' token
+MPEGsystem.cpp:117: error: `read_time_code' declared as an `inline' variable
+MPEGsystem.cpp:117: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:117: error: `pointer' was not declared in this scope
+MPEGsystem.cpp:118: error: expected `,' or `;' before '{' token
+MPEGsystem.cpp:135: error: `Uint32' does not name a type
+MPEGsystem.cpp:172: error: `audio_aligned' declared as an `inline' variable
+MPEGsystem.cpp:172: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:172: error: `pointer' was not declared in this scope
+MPEGsystem.cpp:172: error: `Uint32' was not declared in this scope
+MPEGsystem.cpp:173: error: initializer expression list treated as compound expression
+MPEGsystem.cpp:173: error: expected `,' or `;' before '{' token
+MPEGsystem.cpp:189: error: `Uint32' does not name a type
+MPEGsystem.cpp:221: error: `Uint32' does not name a type
+MPEGsystem.cpp:244: error: `Uint32' does not name a type
+MPEGsystem.cpp:261: error: `Uint32' does not name a type
+MPEGsystem.cpp:275: error: `Uint32' does not name a type
+MPEGsystem.cpp:295: error: `Uint32' does not name a type
+MPEGsystem.cpp:360: error: `system_aligned' declared as an `inline' variable
+MPEGsystem.cpp:360: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:360: error: `pointer' was not declared in this scope
+MPEGsystem.cpp:360: error: `Uint32' was not declared in this scope
+MPEGsystem.cpp:361: error: initializer expression list treated as compound expression
+MPEGsystem.cpp:361: error: expected `,' or `;' before '{' token
+MPEGsystem.cpp:376: error: `Uint32' does not name a type
+MPEGsystem.cpp:398: error: expected `)' before '*' token
+MPEGsystem.cpp:398: error: expected `,' or `;' before '*' token
+MPEGsystem.cpp: In destructor `virtual MPEGsystem::~MPEGsystem()':
+MPEGsystem.cpp:480: error: `request_wait' undeclared (first use this function)
+MPEGsystem.cpp:480: error: `SDL_DestroySemaphore' undeclared (first use this function)
+MPEGsystem.cpp:481: error: `system_mutex' undeclared (first use this function)
+MPEGsystem.cpp:481: error: `SDL_DestroyMutex' undeclared (first use this function)
+MPEGsystem.cpp:490: error: `read_buffer' undeclared (first use this function)
+MPEGsystem.cpp: In member function `virtual void MPEGsystem::Read()':
+MPEGsystem.cpp:504: error: `system_mutex' undeclared (first use this function)
+MPEGsystem.cpp:504: error: `SDL_mutexP' undeclared (first use this function)
+MPEGsystem.cpp:507: error: `read_buffer' undeclared (first use this function)
+MPEGsystem.cpp:507: error: `pointer' undeclared (first use this function)
+MPEGsystem.cpp:516: error: `SDL_mutexV' undeclared (first use this function)
+MPEGsystem.cpp:545: error: `source' undeclared (first use this function)
+MPEGsystem.cpp:545: error: `SDL_RWread' undeclared (first use this function)
+MPEGsystem.cpp:565: error: `read_total' undeclared (first use this function)
+MPEGsystem.cpp:567: error: `packet_total' undeclared (first use this function)
+MPEGsystem.cpp: At global scope:
+MPEGsystem.cpp:598: error: `Uint8' does not name a type
+MPEGsystem.cpp:891: error: `Uint32' does not name a type
+MPEGsystem.cpp:906: error: `Uint32' does not name a type
+MPEGsystem.cpp: In member function `virtual double MPEGsystem::TotalTime()':
+MPEGsystem.cpp:957: error: `Uint8' undeclared (first use this function)
+MPEGsystem.cpp:957: error: `buffer' undeclared (first use this function)
+MPEGsystem.cpp:957: error: `p' undeclared (first use this function)
+MPEGsystem.cpp:961: error: `system_mutex' undeclared (first use this function)
+MPEGsystem.cpp:961: error: `SDL_mutexP' undeclared (first use this function)
+MPEGsystem.cpp:964: error: `source' undeclared (first use this function)
+MPEGsystem.cpp:964: error: `SDL_RWtell' undeclared (first use this function)
+MPEGsystem.cpp:971: error: `SDL_mutexV' undeclared (first use this function)
+MPEGsystem.cpp:976: error: `Uint8' has not been declared
+MPEGsystem.cpp:981: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:985: error: `SDL_RWseek' undeclared (first use this function)
+MPEGsystem.cpp:996: error: `SDL_RWread' undeclared (first use this function)
+MPEGsystem.cpp:1000: error: `audio_aligned' cannot be used as a function
+MPEGsystem.cpp:1007: error: `Uint32' undeclared (first use this function)
+MPEGsystem.cpp:1007: error: expected `;' before "framesize"
+MPEGsystem.cpp:1009: error: expected `;' before "totalsize"
+MPEGsystem.cpp:1011: error: `framesize' undeclared (first use this function)
+MPEGsystem.cpp:1011: error: `audio_header' undeclared (first use this function)
+MPEGsystem.cpp:1012: error: `totalsize' undeclared (first use this function)
+MPEGsystem.cpp:1012: error: `TotalSize' undeclared (first use this function)
+MPEGsystem.cpp:1023: error: `Sint32' undeclared (first use this function)
+MPEGsystem.cpp:1023: error: expected `)' before "TotalSize"
+MPEGsystem.cpp:1025: error: expected `;' before "TotalSize"
+MPEGsystem.cpp:1041: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1051: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1066: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1067: error: `packet_header' undeclared (first use this function)
+MPEGsystem.cpp:1069: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1070: error: `gop_header' undeclared (first use this function)
+MPEGsystem.cpp: In member function `virtual double MPEGsystem::TimeElapsedAudio(int)':
+MPEGsystem.cpp:1096: error: `Uint8' undeclared (first use this function)
+MPEGsystem.cpp:1096: error: `buffer' undeclared (first use this function)
+MPEGsystem.cpp:1096: error: `p' undeclared (first use this function)
+MPEGsystem.cpp:1105: error: `system_mutex' undeclared (first use this function)
+MPEGsystem.cpp:1105: error: `SDL_mutexP' undeclared (first use this function)
+MPEGsystem.cpp:1108: error: `source' undeclared (first use this function)
+MPEGsystem.cpp:1108: error: `SDL_RWtell' undeclared (first use this function)
+MPEGsystem.cpp:1115: error: `SDL_mutexV' undeclared (first use this function)
+MPEGsystem.cpp:1120: error: `Uint8' has not been declared
+MPEGsystem.cpp:1124: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1128: error: `SDL_RWseek' undeclared (first use this function)
+MPEGsystem.cpp:1139: error: `SDL_RWread' undeclared (first use this function)
+MPEGsystem.cpp:1143: error: `audio_aligned' cannot be used as a function
+MPEGsystem.cpp:1150: error: `Uint32' undeclared (first use this function)
+MPEGsystem.cpp:1150: error: expected `;' before "framesize"
+MPEGsystem.cpp:1152: error: expected `;' before "totalsize"
+MPEGsystem.cpp:1154: error: `framesize' undeclared (first use this function)
+MPEGsystem.cpp:1154: error: `audio_header' undeclared (first use this function)
+MPEGsystem.cpp:1155: error: `totalsize' undeclared (first use this function)
+MPEGsystem.cpp:1155: error: `TotalSize' undeclared (first use this function)
+MPEGsystem.cpp: In member function `virtual bool MPEGsystem::Seek(int)':
+MPEGsystem.cpp:1197: error: `system_mutex' undeclared (first use this function)
+MPEGsystem.cpp:1197: error: `SDL_mutexP' undeclared (first use this function)
+MPEGsystem.cpp:1200: error: `source' undeclared (first use this function)
+MPEGsystem.cpp:1200: error: `SDL_RWseek' undeclared (first use this function)
+MPEGsystem.cpp:1211: error: `pointer' undeclared (first use this function)
+MPEGsystem.cpp:1211: error: `read_buffer' undeclared (first use this function)
+MPEGsystem.cpp:1213: error: `read_total' undeclared (first use this function)
+MPEGsystem.cpp:1214: error: 'class MPEGstream' has no member named 'pos'
+MPEGsystem.cpp:1215: error: `packet_total' undeclared (first use this function)
+MPEGsystem.cpp:1222: error: `SDL_mutexV' undeclared (first use this function)
+MPEGsystem.cpp: In member function `void MPEGsystem::RequestBuffer()':
+MPEGsystem.cpp:1232: error: `request_wait' undeclared (first use this function)
+MPEGsystem.cpp:1232: error: `SDL_SemPost' undeclared (first use this function)
+MPEGsystem.cpp: In member function `bool MPEGsystem::Wait()':
+MPEGsystem.cpp:1284: error: `request_wait' undeclared (first use this function)
+MPEGsystem.cpp:1284: error: `SDL_SemValue' undeclared (first use this function)
+MPEGsystem.cpp: In static member function `static bool MPEGsystem::SystemLoop(MPEGsystem*)':
+MPEGsystem.cpp:1304: error: 'class MPEGsystem' has no member named 'source'
+MPEGsystem.cpp:1304: error: `SDL_RWseek' undeclared (first use this function)
+MPEGsystem.cpp:1315: error: 'class MPEGsystem' has no member named 'pointer'
+MPEGsystem.cpp:1315: error: 'class MPEGsystem' has no member named 'read_buffer'
+MPEGsystem.cpp:1317: error: 'class MPEGsystem' has no member named 'read_total'
+MPEGsystem.cpp:1318: error: 'class MPEGsystem' has no member named 'packet_total'
+MPEGsystem.cpp:1332: error: 'class MPEGsystem' has no member named 'request_wait'
+MPEGsystem.cpp:1332: error: `SDL_SemWait' undeclared (first use this function)
+MPEGsystem.cpp:1335: error: 'class MPEGsystem' has no member named 'FillBuffer'
+MPEGsystem.cpp: At global scope:
+MPEGsystem.cpp:1373: error: `MPEGstream*MPEGsystem::get_stream' is not a static member of `class MPEGsystem'
+MPEGsystem.cpp:1373: error: `Uint8' was not declared in this scope
+MPEGsystem.cpp:1374: error: expected `,' or `;' before '{' token
+MPEGsystem.cpp:1384: error: `Uint8' does not name a type
+MPEGsystem.cpp: In member function `virtual bool MPEGsystem::seek_first_header()':
+MPEGsystem.cpp:1421: error: `pointer' undeclared (first use this function)
+MPEGsystem.cpp:1421: error: `read_buffer' undeclared (first use this function)
+MPEGsystem.cpp:1421: error: `audio_aligned' cannot be used as a function
+MPEGsystem.cpp:1422: error: `system_aligned' cannot be used as a function
+MPEGsystem.cpp:1423: error: `VIDEO_CODE' undeclared (first use this function)
+MPEGsystem.cpp:1423: error: `VIDEO_MASK' undeclared (first use this function)
+MPEGsystem.cpp:1423: error: `Match4' cannot be used as a function
+MPEGsystem.cpp:1426: error: 'class MPEGstream' has no member named 'pos'
+MPEGsystem.cpp: In member function `virtual bool MPEGsystem::seek_next_header()':
+MPEGsystem.cpp:1443: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1443: error: `pointer' undeclared (first use this function)
+MPEGsystem.cpp:1443: error: `read_buffer' undeclared (first use this function)
+MPEGsystem.cpp:1443: error: `audio_aligned' cannot be used as a function
+MPEGsystem.cpp:1444: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1444: error: `system_aligned' cannot be used as a function
+MPEGsystem.cpp:1445: error: 'class MPEGstream' has no member named 'streamid'
+MPEGsystem.cpp:1445: error: `GOP_CODE' undeclared (first use this function)
+MPEGsystem.cpp:1445: error: `GOP_MASK' undeclared (first use this function)
+MPEGsystem.cpp:1445: error: `Match4' cannot be used as a function
+MPEGsystem.cpp:1449: error: 'class MPEGstream' has no member named 'pos'
+make: *** [MPEGsystem.o] Error 1

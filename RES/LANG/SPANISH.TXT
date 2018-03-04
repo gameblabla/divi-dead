@@ -1,0 +1,12 @@
+SPANISH.DL1
+EMPEZAR
+GUARDAR
+CARGAR
+SALIR
+GALERÍA %.1f%%
+GUARDAR IMAGEN
+¿Empezar nueva partida?
+OPCIONES
+voz
+musica
+No hay datos

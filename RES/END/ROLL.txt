@@ -1,0 +1,79 @@
+#2
+.
+@DIRECTOR
+Tanaka Mitsuru
+.
+@ESCENARIOS
+Nigou
+.
+@DIBUJO ORIGINAL
+Uchida Masataka
+.
+@MÚSICA
+Ogata Masashi
+.
+@PROGRAMACIÓN
+Furuie Reiho
+.
+@CG
+Sakura Katsumi
+.
+@DISEÑO
+Mori Saori
+.
+@EDICIÓN CGs
+Saito Ronka
+Kaburagi Makoto
+Sakuraga Misa
+Satou Makoto
+.
+@AGRADECIMIENTOS
+Tikuzensyu Hideyoshi
+Hanazuka Masatoshi
+Keijirou Harenobu
+Masami
+.
+@JUEGO ORIGINAL
+#0
+.
+@PROGRAMACIÓN DEL PORT
+soywiz
+.
+@TRADUCCIÓN AL CASTELLANO
+soywiz
+MrHeston
+Pacochan
+.
+@TRADUCCIÓN DEL JAPONÉS
+Mandanga
+.
+@AYUDA CON PORT A DREAMCAST
+Mandanga
+Indiket
+.
+@AYUDA CON PORT A MAC
+MrHeston
+.
+@REVISIÓN Y BETATESTING
+Mandanga
+Indiket
+Byron
+Tidus_20
+LinkinDark
+MrHeston
+.
+@AGRADECIMIENTOS ESPECIALES
+A la lente de Indiket
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+*
+#1
+@2008
