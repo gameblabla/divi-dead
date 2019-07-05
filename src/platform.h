@@ -12,6 +12,7 @@
 #define SCREEN_HEIGHT 240
 
 #define HOME_DIRECTORY
+#define GAME_HOME_DIRECTORY
 
 #if defined(BITTBOY)
 #define VIDEOMODE_BITS 32
@@ -51,6 +52,7 @@
 #elif defined(RS90)
 
 #define HOME_DIRECTORY
+#define GAME_HOME_DIRECTORY
 
 #define VIDEOMODE_BITS 32
 #define SCREEN_BUFFER_BPP 16

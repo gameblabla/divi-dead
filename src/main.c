@@ -8,6 +8,7 @@ KOS_INIT_FLAGS(INIT_DEFAULT);
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <libgen.h>
 #include <stdarg.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
@@ -17,6 +18,8 @@ KOS_INIT_FLAGS(INIT_DEFAULT);
 #include <SDL/SDL_ttf.h>
 
 #include "main.h"
+
+char game_directory[1024];
 
 void lang_postinit();
 
@@ -700,12 +703,17 @@ void sdl_init() {
 
 void lang_init() {
 	FILE *f;
-	char temp[0x100];
+	char temp[512];
 	int n = 0, m, l;
 	
 	if (!strlen(language)) strcpy(language, LANGUAGE_DEFAULT);
 	
+#ifdef GAME_HOME_DIRECTORY
+	snprintf(temp, sizeof(temp), "%s/%s%s/%s.TXT", game_directory, FILE_PREFIX, ALTERNATE_LANG, language);
+#else
 	sprintf(temp, "%s%s/%s.TXT", FILE_PREFIX, ALTERNATE_LANG, language);
+#endif
+
 	if (!_file_exists(temp)) {
 		printf("File '%s' doesn't exists\n", temp);
 		sprintf(temp, "%sLANG/%s.TXT", FILE_PREFIX, language);
@@ -733,23 +741,39 @@ void lang_init() {
 void vfs_init() {
 	//if (initialized != 0) return;
 
-	char temp[0x100];
+	char temp[512];
 	
 	//initialized = 1;
 	
 	VFS_RESET();
 	
+#ifdef GAME_HOME_DIRECTORY
+	snprintf(temp, sizeof(temp), "%s/%s%s/%s", game_directory, FILE_PREFIX, ALTERNATE_LANG, lang_texts[0]);
+#else
 	sprintf(temp, "%s%s/%s", FILE_PREFIX, ALTERNATE_LANG, lang_texts[0]);
+#endif
 	if (!_file_exists(temp)) {
 		printf("File '%s' doesn't exists\n", temp);
 		sprintf(temp, "%sLANG/%s", FILE_PREFIX, lang_texts[0]);
 	}
 	VFS_MOUNT(temp);
+	
+#ifdef GAME_HOME_DIRECTORY
+	char sg_path[512], wv_path[512];
+	
+	snprintf(sg_path, sizeof(sg_path), "%s/%s", game_directory, "SG.DL1");
+	snprintf(wv_path, sizeof(wv_path), "%s/%s", game_directory, "WV.DL1");
+	
+	if (!VFS_MOUNT(sg_path)) PROGRAM_EXIT_ERROR("Can't locate 'SG.DL1'");
+	if (!VFS_MOUNT(wv_path)) {
+		printf("Can't locate 'WV.DL1'\n");
+	}
+#else
 	if (!VFS_MOUNT(FILE_PREFIX "SG.DL1")) PROGRAM_EXIT_ERROR("Can't locate 'SG.DL1'");
-	//if (!VFS_MOUNT(FILE_PREFIX "WV.DL1")) PROGRAM_EXIT_ERROR("Can't locate 'WV.DL1'");
 	if (!VFS_MOUNT(FILE_PREFIX "WV.DL1")) {
 		printf("Can't locate 'WV.DL1'\n");
 	}
+#endif
 }
 
 void lang_postinit() {
@@ -809,7 +833,17 @@ void game_init() {
 	}
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
+#ifdef GAME_HOME_DIRECTORY
+	if (argc < 2)
+	{
+		printf("Requires a path to a DL1 file\n");
+		return 0;
+	}
+	snprintf(game_directory, sizeof(game_directory), "%s", dirname(argv[1]));
+#endif
+	
 	MEMORY_DEBUG();
 	
 	ZERO(save);
@@ -893,8 +927,16 @@ int main(int argc, char* argv[]) {
 
 	printf("MOVIE_START();\n");
 	MOVIE_START();
+#ifdef GAME_HOME_DIRECTORY
+		char cs_robo_path[512], opening_path[512];
+		snprintf(cs_robo_path, sizeof(cs_robo_path), "%s/%s", game_directory, "CS_ROGO.MPG");
+		snprintf(opening_path, sizeof(opening_path), "%s/%s", game_directory, "OPEN.MPG");
+		MOVIE_PLAY(cs_robo_path, 1);
+		MOVIE_PLAY(opening_path, 1);
+#else
 		MOVIE_PLAY(FILE_PREFIX "CS_ROGO.MPG", 1);
 		MOVIE_PLAY(FILE_PREFIX "OPEN.MPG", 1);
+#endif
 	MOVIE_END();
 	printf("MOVIE_END();\n");
 
