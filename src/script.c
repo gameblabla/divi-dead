@@ -128,7 +128,7 @@ void GAME_SAVE_MIN(SDL_RWops *f) {
 
 int GAME_SAVE(int n) {
 	SDL_RWops *f;
-	char name[0x100];
+	char name[512];
 	char date[80];
 	time_t now;
 	struct tm *tmPtr;
@@ -142,7 +142,11 @@ int GAME_SAVE(int n) {
 
 	printf("GAME_SAVE():0\n");
 	
+#ifdef HOME_DIRECTORY
+	snprintf(name, sizeof(name), "%s/%s/saves/DATA%d.DAT", getenv("HOME"), SAVE_DIRECTORY_NAME, n);
+#else
 	sprintf(name, SAVE_ROOT "/DATA/DATA%d.DAT", n);
+#endif
 	
 	printf("GAME_SAVE():1\n");
 	
@@ -150,7 +154,21 @@ int GAME_SAVE(int n) {
 	f = save_buffer_open();
 	printf("GAME_SAVE():DC\n");
 #else
+
+#ifdef HOME_DIRECTORY
+	char save_path[512];
+	snprintf(save_path, sizeof(save_path), "%s/%s", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	mkdir(save_path, 0755);
+	
+	snprintf(save_path, sizeof(save_path), "%s/%s/snaps", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	mkdir(save_path, 0755);
+	
+	snprintf(save_path, sizeof(save_path), "%s/%s/saves", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	mkdir(save_path, 0755);
+#else
 	mkdir(SAVE_ROOT "/DATA", 0777);
+#endif
+	
 	if (!(f = SDL_RWFromFile(name, "wb"))) {
 		printf("Can't save\n");
 		return 0;
@@ -213,12 +231,16 @@ void GAME_LOAD_MIN(SDL_RWops *f) {
 
 int GAME_LOAD(int n) {
 	unsigned char magic = 0xFF;
-	char name[0x80];
+	char name[512];
 	SDL_RWops *f;
 
 	printf("GAME_LOAD: %d\n", n);
 	
+#ifdef HOME_DIRECTORY
+	snprintf(name, sizeof(name), "%s/%s/saves/DATA%d.DAT", getenv("HOME"), SAVE_DIRECTORY_NAME, n);
+#else
 	sprintf(name, SAVE_ROOT "/DATA/DATA%d.DAT", n);
+#endif
 
 #ifdef DREAMCAST
 	printf("GAME_LOAD():Dc\n");

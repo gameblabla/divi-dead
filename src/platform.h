@@ -1,13 +1,17 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+
 #if defined(BITTBOY) || defined(RS97) || defined(GCW0)
-#define VIDEOMODE_BITS 16
+#define VIDEOMODE_BITS 32
 #define SCREEN_BUFFER_BPP 32
 
+/* Liberation Mono - Bold */
 #define FONT_DEFAULT_SIZE 18
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
+
+#define HOME_DIRECTORY
 
 #if defined(BITTBOY)
 #define VIDEOMODE_FLAGS (SDL_HWSURFACE)
@@ -38,6 +42,27 @@
 #define BUTTON_EXIT_KEY SDLK_ESCAPE
 #endif
 
+#elif defined(RS90)
+
+#define HOME_DIRECTORY
+
+#define VIDEOMODE_BITS 32
+#define SCREEN_BUFFER_BPP 32
+
+/* http://vyznev.net/misc/CG-pixel-4x5.zip */
+#define FONT_DEFAULT_SIZE 14
+#define SCREEN_WIDTH  240
+#define SCREEN_HEIGHT 160
+
+#define VIDEOMODE_FLAGS (SDL_HWSURFACE | SDL_DOUBLEBUF)
+#define BUTTON_A_DEFINE SDLK_LCTRL
+#define BUTTON_B_DEFINE SDLK_LALT
+#define BUTTON_C_DEFINE SDLK_RETURN
+#define BUTTON_D_DEFINE SDLK_TAB
+#define BUTTON_MODE_DEFINE SDLK_LSHIFT
+#define BUTTON_SPECIAL_DEFINE SDLK_SPACE
+#define BUTTON_EXIT_KEY SDLK_ESCAPE
+
 #else
 #define VIDEOMODE_FLAGS (SDL_HWSURFACE | SDL_DOUBLEBUF)
 #define VIDEOMODE_BITS 32
@@ -55,5 +80,11 @@
 #define BUTTON_SPECIAL_DEFINE SDLK_SPACE
 #define BUTTON_EXIT_KEY SDLK_ESCAPE
 #endif
+
+
+#if defined(HOME_DIRECTORY)
+#define SAVE_DIRECTORY_NAME ".dividead"
+#endif
+
 
 #endif

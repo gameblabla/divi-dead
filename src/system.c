@@ -40,15 +40,32 @@ void SYS_SAVE_MIN(SDL_RWops *f) {
 }
 
 int SYS_SAVE() {
+	char sys_path[512];
 	//int retval;
 	SDL_RWops *f;
 	
 #ifdef DREAMCAST
 	f = save_buffer_open();
 #else
-	mkdir(SAVE_ROOT "/DATA", 0777);
+
+#ifdef HOME_DIRECTORY
+	char save_path[512];
+	snprintf(save_path, sizeof(save_path), "%s/%s", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	mkdir(save_path, 0755);
 	
-	if (!(f = SDL_RWFromFile(SAVE_ROOT "/DATA/SYS.DAT", "wb"))) {
+	snprintf(save_path, sizeof(save_path), "%s/%s/snaps", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	mkdir(save_path, 0755);
+	
+	snprintf(save_path, sizeof(save_path), "%s/%s/saves", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	mkdir(save_path, 0755);
+	
+	snprintf(sys_path, sizeof(sys_path), "%s/%s/SYS.DAT", getenv("HOME"), SAVE_DIRECTORY_NAME);
+#else
+	mkdir(SAVE_ROOT "/DATA", 0755);
+	snprintf(sys_path, sizeof(sys_path), SAVE_ROOT "/DATA/SYS.DAT");
+#endif
+	
+	if (!(f = SDL_RWFromFile(sys_path, "wb"))) {
 		printf("Can't write system\n");
 		return 0;
 	}	
@@ -92,12 +109,19 @@ int SYS_LOAD() {
 	//int retval;
 	SDL_RWops *f;
 	unsigned char magic;
-
+	char sys_path[512];
 #ifdef DREAMCAST
 	dc_save_file_load(0, 0, save_buffer, &save_buffer_size);
 	f = save_buffer_open_load();
 #else
-	if (!(f = SDL_RWFromFile(SAVE_ROOT "/DATA/SYS.DAT", "rb"))) {
+
+#ifdef HOME_DIRECTORY
+	snprintf(sys_path, sizeof(sys_path), "%s/%s/SYS.DAT", getenv("HOME"), SAVE_DIRECTORY_NAME);
+#else
+	snprintf(sys_path, sizeof(sys_path), SAVE_ROOT "/DATA/SYS.DAT");
+#endif
+
+	if (!(f = SDL_RWFromFile(sys_path, "rb"))) {
 		int n;
 		for (n = 0; n < 10; n++) strcpy(save_s.names[n], lang_texts[11]);
 		printf("Can't load system\n");
