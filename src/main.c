@@ -328,15 +328,13 @@ void KEYS_UPDATE() {
 					case SDLK_DOWN:   joy_push_keys(+K_DOWN); break;
 					case SDLK_LEFT:   joy_push_keys(+K_LEFT); break;
 					case SDLK_RIGHT:  joy_push_keys(+K_RIGHT); break;
-					case SDLK_RETURN: joy_push_keys(+K_A); break;
-					case 8:
-					case SDLK_ESCAPE: joy_push_keys(+K_B); break;
-					case SDLK_LCTRL: 
-					case SDLK_LSHIFT: joy_push_keys(+K_L); break;
-					case SDLK_RCTRL: 
-					case SDLK_RSHIFT: joy_push_keys(+K_R); break;
-					case SDLK_SPACE:  joy_push_keys(+K_MODE); break;
-					case SDLK_c:      joy_push_keys(+K_SPECIAL); break;
+					case BUTTON_A_DEFINE: joy_push_keys(+K_A); break;
+					case BUTTON_B_DEFINE: joy_push_keys(+K_B); break;
+					case BUTTON_C_DEFINE: joy_push_keys(+K_L); break;
+					case BUTTON_D_DEFINE: joy_push_keys(+K_R); break;
+					case BUTTON_MODE_DEFINE:  joy_push_keys(+K_MODE); break;
+					case BUTTON_SPECIAL_DEFINE:      joy_push_keys(+K_SPECIAL); break;
+					case BUTTON_EXIT_KEY: PROGRAM_EXIT(0); break;
 					default: break;
 				}			
 			break;
@@ -346,14 +344,12 @@ void KEYS_UPDATE() {
 					case SDLK_DOWN:   joy_push_keys(-K_DOWN); break;
 					case SDLK_LEFT:   joy_push_keys(-K_LEFT); break;
 					case SDLK_RIGHT:  joy_push_keys(-K_RIGHT); break;
-					case SDLK_RETURN: joy_push_keys(-K_A); break;
-					case SDLK_ESCAPE: joy_push_keys(-K_B); break;
-					case SDLK_LCTRL: 
-					case SDLK_LSHIFT: joy_push_keys(-K_L); break;
-					case SDLK_RCTRL: 
-					case SDLK_RSHIFT: joy_push_keys(-K_R); break;
-					case SDLK_SPACE:  joy_push_keys(-K_MODE); break;
-					case SDLK_c:      joy_push_keys(-K_SPECIAL); break;
+					case BUTTON_A_DEFINE: joy_push_keys(-K_A); break;
+					case BUTTON_B_DEFINE: joy_push_keys(-K_B); break;
+					case BUTTON_C_DEFINE: joy_push_keys(-K_L); break;
+					case BUTTON_D_DEFINE: joy_push_keys(-K_R); break;
+					case BUTTON_MODE_DEFINE:  joy_push_keys(-K_MODE); break;
+					case BUTTON_SPECIAL_DEFINE:      joy_push_keys(-K_SPECIAL); break;
 					default: break;
 				}			
 			break;
@@ -648,9 +644,8 @@ void sdl_init() {
 	#endif
 	pf = screen_video->format;
 	printf("SCREEN_FLAGS(%08X, %08X, %08X, %08X)\n", pf->Rmask, pf->Gmask, pf->Bmask, pf->Amask);
-	if (!(screen = SDL_CreateRGBSurface(SDL_SWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, pf->BitsPerPixel, pf->Rmask, pf->Gmask, pf->Bmask, pf->Amask))) PROGRAM_EXIT_ERROR("Can't initialize frame buffer");
+	if (!(screen = SDL_CreateRGBSurface(SDL_SWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BUFFER_BPP, 0, 0, 0, 0))) PROGRAM_EXIT_ERROR("Can't initialize frame buffer");
 	//if (!(screen = SDL_CreateRGBSurface(SDL_SWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, 16, 0xF000, 0x0F00, 0x00F0, 0x0000))) PROGRAM_EXIT_ERROR("Can't initialize frame buffer");
-	
 	{
 		SDL_Rect r;
 		SDL_Surface *s;
