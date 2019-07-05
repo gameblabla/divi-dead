@@ -54,9 +54,6 @@ extern void lang_postinit();
 #define SAVE_FULL 1
 //#define SAVE_FULL 0
 
-#define SCREEN_WIDTH  800
-#define SCREEN_HEIGHT 600
-
 #define font_size_corrected ACORRECT_Y(font_size)
 
 #define ACORRECT_X(v) iround((((double)(v)) * (double)SCREEN_WIDTH)  / (double)ORI_SCREEN_WIDTH)

@@ -14,6 +14,8 @@ So yeah this should be a lot more straight forward to compile & run.
 Note that i removed the tools for translating and yadada...
 This is only focused on the game engine part and getting the game up and running, nothing else.
 
+The font used is Liberation Mono - Bold.
+
 =========
 Building
 =========

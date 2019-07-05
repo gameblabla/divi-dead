@@ -1,0 +1,18 @@
+#ifndef PLATFORM_H
+#define PLATFORM_H
+
+#if defined(BITTBOY) || defined(RS97) || defined(GCW0)
+#define VIDEOMODE_FLAGS (SDL_HWSURFACE)
+#define VIDEOMODE_BITS 16
+#define FONT_DEFAULT_SIZE 17
+#define SCREEN_WIDTH  320
+#define SCREEN_HEIGHT 240
+#else
+#define VIDEOMODE_FLAGS (SDL_SWSURFACE)
+#define VIDEOMODE_BITS 32
+#define FONT_DEFAULT_SIZE 15
+#define SCREEN_WIDTH  800
+#define SCREEN_HEIGHT 480
+#endif
+
+#endif

@@ -3,8 +3,6 @@
 
 #include "shared.h"
 
-#define VIDEOMODE_FLAGS (SDL_SWSURFACE|SDL_FULLSCREEN)
-#define VIDEOMODE_BITS 32
 #define FILE_PREFIX ""
 
 extern void message(char *format, ...);

@@ -37,6 +37,7 @@
 #include "system.h"
 #include "system_unix.h"
 
+#include "platform.h"
 
 /* Graphics */
 

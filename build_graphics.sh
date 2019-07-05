@@ -5,7 +5,7 @@ cd DC/icons
 php build.php
 cd ../../../
 utils/bin2c/bin2c.elf RES/FONT.TTF RES/FONT_TTF.c font_ttf
-utils/bin2c/bin2c.elf RES/FONT2.TTF RES/FONT2_TTF.c font2_ttf
+#utils/bin2c/bin2c.elf RES/FONT2.TTF RES/FONT2_TTF.c font2_ttf
 utils/bin2c/bin2c.elf RES/CLICK.WAV RES/CLICK_WAV.c click_wav
 utils/bin2c/bin2c.elf RES/SPLASH.JPG RES/SPLASH_JPG.c splash_jpg
 utils/bin2c/bin2c.elf RES/ICMP.DAT RES/ICMP_DAT.c ichars_data

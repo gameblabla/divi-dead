@@ -83,7 +83,7 @@ char lang_texts[12][0x30] = {
 	"No data"
 };
 
-int font_size = 15;
+int font_size = FONT_DEFAULT_SIZE;
 
 int CHECK_MENU_KEYS();
 int OPTION_SAVE_IMAGE(int);

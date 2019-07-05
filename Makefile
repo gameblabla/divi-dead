@@ -6,7 +6,7 @@ GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 
 INCLUDES	= -I -Isrc -Isrc/smpeg -IRES
 
-DEFINES		= -DENABLE_VIDEO_SMPEG
+DEFINES		= -DENABLE_VIDEO_SMPEG -DBITTBOY
 
 CFLAGS		= -O0 -g3 -march=native -fno-common -Wall $(INCLUDES) $(DEFINES)
 CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98

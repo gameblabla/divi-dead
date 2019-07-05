@@ -4,11 +4,11 @@
 extern const char roll_txt[552];
 extern const int size_roll_txt;
 
-extern const char font_ttf[584424];
+extern const char font_ttf[302148];
 extern const int size_font_ttf;
 
-extern const char font2_ttf[584424];
-extern const int size_font2_ttf;
+#define font2_ttf font_ttf
+#define size_font2_ttf size_font_ttf
 
 extern const char click_wav[1322];
 extern const int size_click_wav;
