@@ -67,13 +67,17 @@ void MOVIE_PLAY(char *name, int skip) {
 	
 	SMPEG_setdisplay(mpeg, screen_video, NULL, NULL);
 
-	if ((screen->w == 640 && screen->h == 480) || (abs(rw - screen->w) < 80)) {
+	/*if ((screen->w == 640 && screen->h == 480) || (abs(rw - screen->w) < 80)) {
 		SMPEG_scaleXY(mpeg, rw, rh);
 	} else {
 		rw = screen->w - 16;
 		rh = (rh * rw) / mpeg_info.width;
 		SMPEG_scaleXY(mpeg, rw, rh);
-	}
+	}*/
+	/* Upscales to the fullscreen instead */
+	rw = screen->w;
+	rh = screen->h;
+	SMPEG_scaleXY(mpeg, rw, rh);
 
 	SMPEG_move(mpeg, screen->w / 2 - rw / 2, screen->h / 2 - rh / 2);
 	SMPEG_setvolume(mpeg, volume_movie);
