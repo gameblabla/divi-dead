@@ -1,7 +1,6 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-
 #if defined(BITTBOY) || defined(RS97) || defined(GCW0)
 #define VIDEOMODE_BITS 32
 #define SCREEN_BUFFER_BPP 16

@@ -192,4 +192,6 @@ extern int debug_combination[6];
 extern int IMAGE_CACHE_MAX;
 extern IMAGE_CACHE image_cache[32];
 
+extern char game_directory[512];
+
 #endif

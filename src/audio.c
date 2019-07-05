@@ -8,12 +8,12 @@ extern DECLSPEC Mix_Music * SDLCALL Mix_LoadMUS_RW(SDL_RWops *rw);
 #endif
 
 void GAME_MUSIC_PLAY(char *name) {
-	char temp[0x40] = {0}; char *tempp;
+	char temp[1024], temp2[1024], music_name[256];
+	char *tempp;
 	
 	//printf("%s\n", save.music);
 	
 	if (!audio_initialized) return;
-	
 	if (music) {
 		//printf("GAME_MUSIC_PLAY(): (1)\n");
 		Mix_HaltMusic();
@@ -29,35 +29,41 @@ void GAME_MUSIC_PLAY(char *name) {
 	if (!audio_music_enabled) return;
 	
 	//printf("GAME_MUSIC_PLAY(): (4)\n");
+	
+	#if defined(GAME_HOME_DIRECTORY)
+	snprintf(music_name, sizeof(music_name), "%s", save.music);
+	for (tempp = music_name; (*tempp != '\0'); tempp++) *tempp = toupper(*tempp);
+	#endif
 
 	#ifndef DISABLE_MIDI
-		sprintf(temp, strrchr(save.music, '.') ? "%sMID/%s" : "%sMID/%s.MID", FILE_PREFIX, save.music);
+		#if defined(GAME_HOME_DIRECTORY)
+		snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%s/MID/%s" : "%s/MID/%s.MID", game_directory, music_name);
+		#else
+		snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sMID/%s" : "%sMID/%s.MID", FILE_PREFIX, save.music);
 		for (tempp = temp; *tempp; tempp++) if (*tempp >= 'a' && *tempp <= 'z') *tempp = ((*tempp - 'a') + 'A');
+		#endif
 	#endif
 
 	#ifdef AUDIO_CHECK_MOD
-		char temp2[0x40];
-		
 		//printf("GAME_MUSIC_PLAY(): (5) '%s'\n", save.music);
-		
 		// Using OGG
-		sprintf(temp2, strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
+		#if defined(GAME_HOME_DIRECTORY)
+		snprintf(temp2, sizeof(temp2), strrchr(save.music, '.') ? "%s/OGG/%s.OGG" : "%s/OGG/%s.MID.OGG", game_directory, music_name);
+		#else
+		snprintf(temp2, sizeof(temp2), strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
+		for (tempp = temp2; (*tempp != '\0'); tempp++) *tempp = toupper(*tempp);
+		#endif
 
 		//printf("GAME_MUSIC_PLAY(): (6) '%s'\n", temp2);
-
-		for (tempp = temp2; (*tempp != '\0'); tempp++) *tempp = toupper(*tempp);
-		
 		//printf("GAME_MUSIC_PLAY(): (7)\n");
-		
 		if (_file_exists(temp2)) {
 			//printf("GAME_MUSIC_PLAY(): (7b)\n");
-			strcpy(temp, temp2);
+			snprintf(temp, sizeof(temp), "%s", temp2);
 		}
-		
 		//printf("GAME_MUSIC_PLAY(): (8)\n");
 	#endif
 	
-	printf("Loading '%s'...", temp);
+	printf("Loading '%s'...", temp2);
 	
 	#ifndef ENABLE_MUSIC
 		printf("Music disabled\n");
@@ -71,7 +77,14 @@ void GAME_MUSIC_PLAY(char *name) {
 	if (NULL == (music = Mix_LoadMUS_RW(SDL_RWFromFile(temp, "rb")))) {
 	#endif
 		printf("Can't play music '%s'\n", temp);
+		#ifdef RINGBUF_AUDIO
+		if (NULL == (music = Mix_LoadMUS_RW(RING_RW_open(SDL_RWFromFile(temp2, "rb"), 0x60000, 0x6000)))) {
+		#else
+		if (NULL == (music = Mix_LoadMUS_RW(SDL_RWFromFile(temp2, "rb")))) {
+		#endif
+		printf("Can't play music '%s'\n", temp2);
 		return;
+		}
 	}
 	
 	printf("Playing...\n"); fflush(stdout);

@@ -1,0 +1,35 @@
+PRGNAME     = DiviDeadRS90.elf
+CC			= /opt/rs90-toolchain/bin/mipsel-linux-gcc
+CXX			= /opt/rs90-toolchain/bin/mipsel-linux-g++
+
+GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
+
+INCLUDES	= -I -Isrc -Isrc/smpeg -IRES
+
+DEFINES		= -DRS90
+
+CFLAGS		= -Ofast -fdata-sections -ffunction-sections -flto -fno-PIC -mno-abicalls -fno-common -Wall $(INCLUDES) $(DEFINES)
+CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
+LDFLAGS     = -static -Wl,--as-needed -Wl,--gc-sections -lc -lgcc -lm -lSDL -lasound -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lSDL_ttf -lfreetype -lm -lstdc++ -lz -s -flto 
+
+# Files to be compiled
+SRCDIR 		=  ./src ./src/smpeg ./src/smpeg/video ./src/smpeg/audio ./RES
+VPATH		= $(SRCDIR)
+SRC_C		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
+SRC_CPP		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
+OBJ_C		= $(notdir $(patsubst %.c, %.o, $(SRC_C)))
+OBJ_CPP		= $(notdir $(patsubst %.cpp, %.o, $(SRC_CPP)))
+OBJS		= $(OBJ_C) $(OBJ_CPP)
+
+# Rules to make executable
+$(PRGNAME): $(OBJS)  
+	$(CC) $(CFLAGS) -std=gnu99 -o $(PRGNAME) $^ $(LDFLAGS)
+	
+$(OBJ_CPP) : %.o : %.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+clean:
+	rm -f $(PRGNAME) *.o
+
+clean_all:
+	rm -f $(PRGNAME) *.o RES/*.c RES/*.CHARS RES/SPLASH.JPG RES/END/*.lz

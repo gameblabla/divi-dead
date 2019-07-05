@@ -19,7 +19,7 @@ KOS_INIT_FLAGS(INIT_DEFAULT);
 
 #include "main.h"
 
-char game_directory[1024];
+char game_directory[512];
 
 void lang_postinit();
 
@@ -627,9 +627,7 @@ void prepare_interface_image(SDL_Rect *rect, SDL_Surface **dest) {
 
 void sdl_init() {
 	SDL_PixelFormat *pf;
-	putenv("SDL_VIDEO_WINDOW_POS");
-	putenv("SDL_VIDEO_CENTERED=1");	
-	if (SDL_Init(SDL_INIT_JOYSTICK | SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) PROGRAM_EXIT_ERROR("Can't initialize SDL'");
+	SDL_Init(SDL_INIT_VIDEO);
 	mutex_reading = SDL_CreateMutex();
 	SDL_ShowCursor(0);
 
