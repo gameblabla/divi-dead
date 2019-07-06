@@ -13,7 +13,7 @@ extern int GAME_MENU_SHOW(OPTION_GAME_MENU *menu);
 
 extern int save_load_action;
 extern int SAVE_LOAD_OPTION(int n);
-extern OPTION_GAME_MENU main_menu_save_load[11];
+extern OPTION_GAME_MENU main_menu_save_load[12];
 extern int MAIN_MENU_GAME_START(int p);
 extern int MAIN_MENU_GAME_LOAD(int p);
 extern int MAIN_MENU_GAME_SAVE(int p);
@@ -21,7 +21,7 @@ extern int MAIN_MENU_GAME_EXIT(int p);
 extern int OPTION_DUMMY(int p);
 extern void SDL_DrawRect(SDL_Surface *dst, SDL_Rect *dstrect, Uint32 color, int border);
 
-extern OPTION_GAME_MENU extra_menu_gallery[2];
+extern OPTION_GAME_MENU extra_menu_gallery[3];
 
 extern void OPTION_GALLERY_SHOW(char *name);
 extern int OPTION_DEBUG_RESTART_ROOM(int g);
@@ -39,7 +39,7 @@ extern int MAIN_MENU_GAME_OPTIONS_MUSIC(int p);
 
 extern char zzoptions[2][0x30];
 
-extern OPTION_GAME_MENU main_menu_options[3];
+extern OPTION_GAME_MENU main_menu_options[4];
 
 extern void updateOptionsTexts(int updated);
 
@@ -49,17 +49,17 @@ extern int MAIN_MENU_GAME_OPTIONS(int p);
 
 extern int OPTION_SELECT_LANG(int p);
 
-extern OPTION_GAME_MENU main_menu_langs[7];
+extern OPTION_GAME_MENU main_menu_langs[8];
 
 extern int MAIN_MENU_GAME_LANG(int p);
 
-extern OPTION_GAME_MENU main_menu_ingame[6];
-extern OPTION_GAME_MENU main_menu_title[6];
+extern OPTION_GAME_MENU main_menu_ingame[7];
+extern OPTION_GAME_MENU main_menu_title[7];
 
 extern char percent_option[0x30];
 
-extern OPTION_GAME_MENU extra_menu_title_nodebug[3];
-extern OPTION_GAME_MENU extra_menu_title_debug[7];
+extern OPTION_GAME_MENU extra_menu_title_nodebug[4];
+extern OPTION_GAME_MENU extra_menu_title_debug[8];
 
 extern void MAIN_MENU_SHOW();
 extern void EXTRA_MENU_SHOW();

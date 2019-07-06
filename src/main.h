@@ -7,6 +7,29 @@ extern SDL_mutex *mutex_reading;
 
 extern void READING_START();
 extern void READING_END  ();
+extern void GAME_BUFFER_REPAINT(int effect);
+
+extern void GAME_SCREEN_UPDATE_RECT(SDL_Surface *from, SDL_Rect *rect);
+extern void GAME_SCREEN_UPDATE(SDL_Surface *from);
+extern void GAME_UPDATE_DEBUG_INFO();
+
+extern void KEYS_UPDATE();
+extern void KEYS_CLEAR();
+
+extern int joy_check_combination_basic_just(int *ptr);
+extern int joy_check_combination_basic(int *ptr);
+
+extern void joy_push_keys_pd(int v);
+extern void joy_push_keys(int v);
+extern int joy_keys_get(int pos);
+
+extern void message_info(char *format, ...);
+
+extern void PROGRAM_EXIT(int v);
+extern void PROGRAM_DELAY(uint32_t milli);
+extern void PROGRAM_EXIT_ERROR(char *format, ...);
+extern int process_exit(const SDL_Event *event);
+extern void text_at_base(SDL_Color c_front, SDL_Color c_back, int x, int y, char *buffer, int update);
 
 extern void lang_postinit();
 
@@ -179,7 +202,7 @@ struct save_struct_game {
 struct save_gallery {
 	char names[10][0x19];
 	uint16_t unk[110];
-	uint16_t gallery[150];
+	uint16_t gallery[152];
 	uint16_t unk2[1750];
 };
 

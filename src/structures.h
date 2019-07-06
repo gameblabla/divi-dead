@@ -62,4 +62,15 @@ typedef struct {
 } FONT;
 
 
+typedef struct {
+	char path[0x100];
+	SDL_RWops *rw;
+} PAK;
+
+typedef struct {
+	PAK *pak;
+	char name[0x10];
+	int pos, len;
+} FSLI;
+
 #endif

@@ -11,16 +11,10 @@
 //#define _file_exists file_exists
 #define _file_exists rw_file_exists
 
-typedef struct {
-	char path[0x100];
-	SDL_RWops *rw;
-} PAK;
-
-typedef struct {
-	PAK *pak;
-	char name[0x10];
-	int pos, len;
-} FSLI;
+extern SDL_RWops *VFS_LOAD(char *name);
+extern FSLI *VFS_FIND(char *name);
+extern SDL_RWops *STREAM_UNCOMPRESS_MEM(void* start, int size);
+extern int VFS_MOUNT(char *name);
 
 // Pak list
 extern PAK paks[0x10];

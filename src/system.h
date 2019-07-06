@@ -2,6 +2,7 @@
 #define SYSTEM_H
 
 #include "shared.h"
+#include "structures.h"
 
 #define VAR_SAVE_L(var, len) SDL_RWwrite(f, var, 1, len);
 #define VAR_LOAD_L(var, len) SDL_RWread (f, var, 1, len);

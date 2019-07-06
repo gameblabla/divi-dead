@@ -23,7 +23,7 @@ SDL_Rect interface_main_buttons_clip[4] = {
 	{ 64 * 3, 80, 64, 64 },
 };
 
-SDL_Rect interface_next_clip[9] = {
+SDL_Rect interface_next_clip[11] = {
 	{ 18 * 0, 144, 18, 18 },
 	{ 18 * 1, 144, 18, 18 },
 	{ 18 * 2, 144, 18, 18 },

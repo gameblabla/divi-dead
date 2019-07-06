@@ -239,7 +239,7 @@ int SAVE_LOAD_OPTION(int n) {
 	return 1;
 }
 
-OPTION_GAME_MENU main_menu_save_load[11] = {
+OPTION_GAME_MENU main_menu_save_load[12] = {
 	{ save_s.names[0], SAVE_LOAD_OPTION},
 	{ save_s.names[1], SAVE_LOAD_OPTION},
 	{ save_s.names[2], SAVE_LOAD_OPTION},
@@ -319,7 +319,7 @@ void SDL_DrawRect(SDL_Surface *dst, SDL_Rect *dstrect, Uint32 color, int border)
 	SDL_FillRect(dst, &rect, color);
 }
 
-OPTION_GAME_MENU extra_menu_gallery[2] = {
+OPTION_GAME_MENU extra_menu_gallery[3] = {
 	{ lang_texts[6], OPTION_SAVE_IMAGE },
 	{ NULL            , NULL },
 };
@@ -751,7 +751,7 @@ int MAIN_MENU_GAME_OPTIONS_MUSIC(int p);
 
 char zzoptions[2][0x30];
 
-OPTION_GAME_MENU main_menu_options[3] = {
+OPTION_GAME_MENU main_menu_options[4] = {
 	{ zzoptions[0], MAIN_MENU_GAME_OPTIONS_VOICE},
 	{ zzoptions[1], MAIN_MENU_GAME_OPTIONS_MUSIC},
 	{ NULL           , NULL },
@@ -803,7 +803,7 @@ int OPTION_SELECT_LANG(int p) {
 	return 0;
 }
 
-OPTION_GAME_MENU main_menu_langs[7] = {
+OPTION_GAME_MENU main_menu_langs[8] = {
 	{ "JAPANESE" , OPTION_SELECT_LANG },
 	{ "ENGLISH"  , OPTION_SELECT_LANG },
 	{ "GERMAN"   , OPTION_SELECT_LANG },
@@ -817,7 +817,7 @@ int MAIN_MENU_GAME_LANG(int p) {
 	return GAME_MENU_SHOW_EX(main_menu_langs, 1);
 }
 
-OPTION_GAME_MENU main_menu_ingame[6] = {
+OPTION_GAME_MENU main_menu_ingame[7] = {
 	{ lang_texts[1], MAIN_MENU_GAME_START },
 	{ lang_texts[2], MAIN_MENU_GAME_SAVE },
 	{ lang_texts[3], MAIN_MENU_GAME_LOAD },
@@ -829,7 +829,7 @@ OPTION_GAME_MENU main_menu_ingame[6] = {
 	{ NULL     , NULL },
 };
 
-OPTION_GAME_MENU main_menu_title[6] = {
+OPTION_GAME_MENU main_menu_title[7] = {
 	{ lang_texts[1], MAIN_MENU_GAME_START },   // START
 	{ lang_texts[3], MAIN_MENU_GAME_LOAD },    // LOAD
 	{ lang_texts[8], MAIN_MENU_GAME_OPTIONS }, // OPTIONS
@@ -843,13 +843,13 @@ OPTION_GAME_MENU main_menu_title[6] = {
 
 char percent_option[0x30] = {0};
 //debug_global
-OPTION_GAME_MENU extra_menu_title_nodebug[3] = {
+OPTION_GAME_MENU extra_menu_title_nodebug[4] = {
 	{ percent_option  , OPTION_GALLERY },      // PERCENT
 	{ lang_texts[6]   , OPTION_SAVE_IMAGE },   // SCREENSHOT
 	{ NULL            , NULL },
 };
 
-OPTION_GAME_MENU extra_menu_title_debug[7] = {
+OPTION_GAME_MENU extra_menu_title_debug[8] = {
 	{ percent_option  , OPTION_GALLERY },            // PERCENT
 	{ lang_texts[6]   , OPTION_SAVE_IMAGE },         // SCREENSHOT
 	{ "Edit Flags"    , OPTION_DEBUG_EDIT_FLAGS },   // DEBUG: EDIT FLAGS

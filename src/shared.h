@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include <sys/stat.h>
+
 #include "zoom.h"
 #include "ringread.h"
 #include "rects.h"
