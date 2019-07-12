@@ -2,18 +2,36 @@ PRGNAME     = DiviDead.elf
 CC          = gcc
 CXX 		= g++
 
+VIDEO_FORMAT = ROQ
+PORT 		 = RS90
 GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 
-INCLUDES	= -I -Isrc -Isrc/smpeg -IRES
+INCLUDES	= -I./ -Isrc -Isrc/smpeg -IRES -Isrc/roq
 
-DEFINES		= -DENABLE_VIDEO_SMPEG -DBITTBOY
+SRCDIR 		=  ./src ./src/roq ./RES
+ifeq ($(PORT), RS97)
+DEFINES		= -DRS97
+else ifeq ($(PORT), RS90)
+DEFINES		= -DRS90
+else ifeq ($(PORT), GCW0)
+DEFINES		= -DGCW0
+else ifeq ($(PORT), BITTBOY)
+DEFINES		= -DBITTBOY
+endif
 
 CFLAGS		= -O0 -g3 -march=native -fno-common -Wall $(INCLUDES) $(DEFINES)
 CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
 LDFLAGS     = -lc -lgcc -lm -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lm -lstdc++ -lz -pthread -lportaudio
 
 # Files to be compiled
-SRCDIR 		=  ./src ./src/smpeg ./src/smpeg/video ./src/smpeg/audio ./RES
+SRCDIR 		=  ./src ./RES
+ifeq ($(VIDEO_FORMAT), ROQ)
+DEFINES		+= -DENABLE_VIDEO_ROQ
+SRCDIR 		+= ./src/roq
+else
+DEFINES		+= -DENABLE_VIDEO_SMPEG
+SRCDIR 		+= ./src/smpeg ./src/smpeg/video ./src/smpeg/audio
+endif
 VPATH		= $(SRCDIR)
 SRC_C		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 SRC_CPP		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))

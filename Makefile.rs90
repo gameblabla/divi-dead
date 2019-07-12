@@ -2,18 +2,26 @@ PRGNAME     = DiviDeadRS90.elf
 CC			= /opt/rs90-toolchain/bin/mipsel-linux-gcc
 CXX			= /opt/rs90-toolchain/bin/mipsel-linux-g++
 
+VIDEO_FORMAT = ROQ
 GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 
 INCLUDES	= -I -Isrc -Isrc/smpeg -IRES
 
-DEFINES		= -DRS90
+DEFINES		= -DRS90 -DDISABLE_MIDI
 
-CFLAGS		= -Ofast -fdata-sections -ffunction-sections -flto -fno-PIC -mno-abicalls -fno-common -Wall $(INCLUDES) $(DEFINES)
+CFLAGS		= -Ofast -fdata-sections -ffunction-sections -flto -fno-common -Wall $(INCLUDES) $(DEFINES)
 CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
-LDFLAGS     = -static -Wl,--as-needed -Wl,--gc-sections -lc -lgcc -lm -lSDL -lasound -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lSDL_ttf -lfreetype -lm -lstdc++ -lz -s -flto 
+LDFLAGS     = -Wl,--as-needed -Wl,--gc-sections -lc -lgcc -lm -lSDL -lasound -lSDL_image -lpng -ljpeg -lSDL_mixer -logg -lvorbisidec -lSDL_ttf -lfreetype -lm -lstdc++ -lz -s -flto 
 
 # Files to be compiled
-SRCDIR 		=  ./src ./src/smpeg ./src/smpeg/video ./src/smpeg/audio ./RES
+SRCDIR 		=  ./src ./RES
+ifeq ($(VIDEO_FORMAT), ROQ)
+DEFINES		+= -DENABLE_VIDEO_ROQ
+SRCDIR 		+= ./src/roq
+else
+DEFINES		+= -DENABLE_VIDEO_SMPEG
+SRCDIR 		+= ./src/smpeg ./src/smpeg/video ./src/smpeg/audio
+endif
 VPATH		= $(SRCDIR)
 SRC_C		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 SRC_CPP		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
