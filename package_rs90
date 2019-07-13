@@ -1,0 +1,32 @@
+#!/bin/sh
+
+mkdir -p opk
+cp ./DiviDeadRS90.elf opk/DiviDeadRS90.elf
+cp ./RES/DC/icon.png opk/icon.png
+cp ./docs/README.txt opk/README.txt
+
+# https://unix.stackexchange.com/questions/219268/how-to-add-new-lines-when-using-echo
+print()
+	case    ${IFS- } in
+	(\ *)   printf  %b\\n "$*";;
+	(*)     IFS=\ $IFS
+	printf  %b\\n "$*"
+	IFS=${IFS#?}
+esac
+
+# Create GmenuNx entry file plus other things
+
+print '[Desktop Entry]
+Type=Application
+Name=Divi-Dead
+Comment=Divi-Dead Game engine
+Exec=DiviDeadRS90.elf %f
+Icon=icon
+Terminal=false
+Type=Application
+Categories=games;
+X-OD-NeedsDownscaling=false' > opk/default.rs90.desktop
+
+mksquashfs ./opk dividead_rs90.opk -all-root -noappend -no-exports -no-xattrs
+
+rm -r opk
