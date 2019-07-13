@@ -4,9 +4,10 @@
 
 #include "movie.h"
 
-void MOVIE_PLAY(char *name, int skip) {
+uint_fast8_t MOVIE_PLAY(char *name, int skip) {
 #ifndef ENABLE_VIDEO_SMPEG
 	printf("Playing '%s'... (compiled without video/mpeg support)\n", name);
+	return 0;
 #else
     SMPEG* mpeg;
     SMPEG_Info mpeg_info;
@@ -14,7 +15,7 @@ void MOVIE_PLAY(char *name, int skip) {
 	
 	printf("Playing '%s'...", name);
 	
-	if (!_file_exists(name)) { printf("Not found\n"); return; }
+	if (!_file_exists(name)) { printf("Not found\n"); return 0; }
 
 	//mpeg = SMPEG_new(name, &mpeg_info, 0);
 	//mpeg = SMPEG_new_rwops(RING_RW_open(SDL_RWFromFile(name, "rw"), 0x800000), &mpeg_info, 0);
@@ -42,7 +43,7 @@ void MOVIE_PLAY(char *name, int skip) {
 		printf("}...");
 	}
 	
-	if ((mpeg == NULL) || (mpeg_info.width == 0)) { printf("Invalid file\n"); return; }
+	if ((mpeg == NULL) || (mpeg_info.width == 0)) { printf("Invalid file\n"); return 0; }
 	
 	printf("Ok\n");
 	
@@ -100,5 +101,6 @@ void MOVIE_PLAY(char *name, int skip) {
 	printf("MOVIE_PLAY:END\n");
 	
 	//exit(-1);
+	return 1;
 #endif
 }

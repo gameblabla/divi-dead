@@ -263,8 +263,15 @@ char* get_ext_data( VidStream* vid_stream )
 
   dataPtr = (char *) realloc(dataPtr, marker);
 
-  /* Return pointer to ext data buffer. */
-  return dataPtr;
+  if (dataPtr)
+  {
+	  /* Return pointer to extra bit info buffer. */
+	  return dataPtr;
+  }
+  else 
+  {
+	  return NULL;
+  }
 }
 
 
@@ -478,6 +485,7 @@ char* get_extra_bit_info( VidStream* vid_stream )
     if (marker == size) {
       size += EXT_BUF_SIZE;
       dataPtr = (char *) realloc(dataPtr, size);
+	  if (!dataPtr) return NULL;
     }
 
     /* Get next flag bit. */
@@ -487,9 +495,15 @@ char* get_extra_bit_info( VidStream* vid_stream )
   /* Reallocate buffer to free extra space. */
 
   dataPtr = (char *) realloc(dataPtr, marker);
-
-  /* Return pointer to extra bit info buffer. */
-  return dataPtr;
+  if (dataPtr)
+  {
+	  /* Return pointer to extra bit info buffer. */
+	  return dataPtr;
+  }
+  else 
+  {
+	  return NULL;
+  }
 }
 
 

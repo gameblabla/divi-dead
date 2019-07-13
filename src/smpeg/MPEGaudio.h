@@ -111,8 +111,8 @@ typedef struct
 typedef struct
 {
   int tablename;
-  unsigned int xlen,ylen;
-  unsigned int linbits;
+  int xlen,ylen;
+  int linbits;
   unsigned int treelen;
   const unsigned int (*val)[2];
 }HUFFMANCODETABLE;

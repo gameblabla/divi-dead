@@ -1282,7 +1282,7 @@ inline void layer3reorder_1(int version,int frequency,
   /* REORDERING FOR REST SWITCHED SHORT */
   for(sfb=3,sfb_start=sfBandIndex->s[3],
 	sfb_lines=sfBandIndex->s[4]-sfb_start;
-      sfb<13;
+      sfb<9;
       sfb++,sfb_start=sfBandIndex->s[sfb],
 	(sfb_lines=sfBandIndex->s[sfb+1]-sfb_start))
   {
@@ -1307,7 +1307,7 @@ void layer3reorder_2(int version,int frequency,REAL  in[SBLIMIT][SSLIMIT],
   int sfb,sfb_start,sfb_lines;
   
   for(sfb=0,sfb_start=0,sfb_lines=sfBandIndex->s[1];
-      sfb<13;
+      sfb<12;
       sfb++,sfb_start=sfBandIndex->s[sfb],
 	(sfb_lines=sfBandIndex->s[sfb+1]-sfb_start))
   {
