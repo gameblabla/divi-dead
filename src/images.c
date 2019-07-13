@@ -643,10 +643,11 @@ void GAME_BACKGROUND_I_MASK(char *name) {
 	GAME_BACKGROUND(save.background_v, clip_bg2, 1);
 }
 
-void GAME_CHARA_EX(char *_name, SDL_Rect clip) {
+void GAME_CHARA_EX(char *_name, SDL_Rect clip) 
+{
 	SDL_Surface *surface = NULL;
 	char name1[0x40], name2[0x40]; char* under;
-
+	
 	strcpy(name1, _name);
 	strcpy(name2, _name);
 	if ((under = strrchr(name2, '_')) != '\0') { under[0] = '_'; under[1] = '0'; under[2] = 0; }
@@ -654,7 +655,16 @@ void GAME_CHARA_EX(char *_name, SDL_Rect clip) {
 	if ((surface = GAME_IMAGE_GET_EX2(name1, name2, 1)) == NULL) return;
 	clip.x += clip.w / 2 - surface->w / 2;
 	clip.y += clip.h - surface->h;
+	
+#ifdef CONVERT_16BPP
+	SDL_Surface* real;
+	real = SDL_DisplayFormat(surface);
+	SDL_SetColorKey(real, (SDL_SRCCOLORKEY | SDL_RLEACCEL), SDL_MapRGB(real->format, 0, 0, 0));
+	SDL_BlitSurface(real, NULL, screen, &clip);
+	SDL_FreeSurface(real);
+#else
 	SDL_BlitSurface(surface, NULL, screen, &clip);
+#endif
 	//printf("  CHAR_CLIP(%d, %d)\n", clip.x, clip.y);
 	
 	#ifdef INTRINSIC_CHARACTERS

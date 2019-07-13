@@ -673,9 +673,7 @@ void sdl_init() {
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 	SDL_InitSubSystem(SDL_INIT_AUDIO);
 
-	//if (Mix_OpenAudio(44100, 32784, 2, 1024) < 0) PROGRAM_EXIT_ERROR("Can initialize audio");
-	if (Mix_OpenAudio(44100, 32784, 2, 1024) < 0) {
-		//PROGRAM_EXIT_ERROR("Can initialize audio");
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
 		printf("Can't initialize audio\n");
 	} else {
 		audio_initialized = 1;
@@ -762,9 +760,22 @@ void vfs_init() {
 	snprintf(sg_path, sizeof(sg_path), "%s/%s", game_directory, "SG.DL1");
 	snprintf(wv_path, sizeof(wv_path), "%s/%s", game_directory, "WV.DL1");
 	
-	if (!VFS_MOUNT(sg_path)) PROGRAM_EXIT_ERROR("Can't locate 'SG.DL1'");
-	if (!VFS_MOUNT(wv_path)) {
-		printf("Can't locate 'WV.DL1'\n");
+	if (!VFS_MOUNT(sg_path))
+	{
+		snprintf(sg_path, sizeof(sg_path), "%s/%s", game_directory, "sg.dl1");
+		if (!VFS_MOUNT(sg_path))
+		{
+			PROGRAM_EXIT_ERROR("Can't locate 'SG.DL1'");
+		}
+	}
+	
+	if (!VFS_MOUNT(wv_path))
+	{
+		snprintf(wv_path, sizeof(wv_path), "%s/%s", game_directory, "wv.dl1");
+		if (!VFS_MOUNT(wv_path))
+		{
+			PROGRAM_EXIT_ERROR("Can't locate 'WV.DL1'");
+		}
 	}
 #else
 	if (!VFS_MOUNT(FILE_PREFIX "SG.DL1")) PROGRAM_EXIT_ERROR("Can't locate 'SG.DL1'");
@@ -833,6 +844,7 @@ void game_init() {
 
 int main(int argc, char* argv[]) 
 {
+	uint_fast8_t result_movie = 0;
 #ifdef GAME_HOME_DIRECTORY
 	if (argc < 2)
 	{
@@ -926,14 +938,25 @@ int main(int argc, char* argv[])
 	printf("MOVIE_START();\n");
 	MOVIE_START();
 #ifdef GAME_HOME_DIRECTORY
-		char cs_robo_path[512], opening_path[512];
-		snprintf(cs_robo_path, sizeof(cs_robo_path), "%s/%s", game_directory, "CS_ROGO.MPG");
-		snprintf(opening_path, sizeof(opening_path), "%s/%s", game_directory, "OPEN.MPG");
-		MOVIE_PLAY(cs_robo_path, 1);
-		MOVIE_PLAY(opening_path, 1);
+	char cs_robo_path[512], opening_path[512];
+	snprintf(cs_robo_path, sizeof(cs_robo_path), "%s/%s", game_directory, "CS_ROGO"VIDEO_EXTENSION);
+	
+	result_movie = MOVIE_PLAY(cs_robo_path, 1);
+	if (!result_movie)
+	{
+		snprintf(cs_robo_path, sizeof(cs_robo_path), "%s/%s", game_directory, "cs_rogo"VIDEO_EXTENSION_LOWERCASE);
+		result_movie = MOVIE_PLAY(cs_robo_path, 1);
+	}
+	snprintf(opening_path, sizeof(opening_path), "%s/%s", game_directory, "OPEN"VIDEO_EXTENSION);
+	result_movie = MOVIE_PLAY(opening_path, 1);
+	if (!result_movie)
+	{
+		snprintf(opening_path, sizeof(opening_path), "%s/%s", game_directory, "open"VIDEO_EXTENSION_LOWERCASE);
+		result_movie = MOVIE_PLAY(opening_path, 1);
+	}
 #else
-		MOVIE_PLAY(FILE_PREFIX "CS_ROGO.MPG", 1);
-		MOVIE_PLAY(FILE_PREFIX "OPEN.MPG", 1);
+	MOVIE_PLAY(FILE_PREFIX "CS_ROGO.MPG", 1);
+	MOVIE_PLAY(FILE_PREFIX "OPEN.MPG", 1);
 #endif
 	MOVIE_END();
 	printf("MOVIE_END();\n");

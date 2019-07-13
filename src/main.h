@@ -3,6 +3,14 @@
 
 #include "shared.h"
 
+#if defined(ENABLE_VIDEO_ROQ)
+#define VIDEO_EXTENSION ".ROQ"
+#define VIDEO_EXTENSION_LOWERCASE ".roq"
+#elif defined(ENABLE_VIDEO_SMPEG)
+#define VIDEO_EXTENSION ".MPG"
+#define VIDEO_EXTENSION_LOWERCASE ".mpg"
+#endif
+
 extern SDL_mutex *mutex_reading;
 
 extern void READING_START();

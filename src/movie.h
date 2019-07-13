@@ -3,6 +3,6 @@
 
 #include "shared.h"
 
-extern void MOVIE_PLAY(char *name, int skip);
+extern uint_fast8_t MOVIE_PLAY(char *name, int skip);
 
 #endif
