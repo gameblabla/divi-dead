@@ -625,6 +625,24 @@ void prepare_interface_image(SDL_Rect *rect, SDL_Surface **dest) {
 	SDL_FreeSurface(temp);
 }
 
+void SDL_Audio_Init()
+{
+	SDL_InitSubSystem(SDL_INIT_AUDIO);
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
+		printf("Can't initialize audio\n");
+	} else {
+		audio_initialized = 1;
+	}
+	
+	if (audio_initialized) {
+		if (!(click = Mix_LoadWAV_RW(STREAM_UNCOMPRESS_MEM(click_wav, size_click_wav), 1))) {
+			PROGRAM_EXIT_ERROR("Can't locate 'CLICK_WAV'");
+		} else {
+			printf("Loaded 'CLICK_WAV'\n");
+		}
+	}
+}
+
 void sdl_init() {
 	SDL_PixelFormat *pf;
 	SDL_Init(SDL_INIT_VIDEO);
@@ -632,21 +650,18 @@ void sdl_init() {
 	SDL_ShowCursor(0);
 
 	SDL_WM_SetCaption("Divi Dead SDL", NULL);
-	if (!(screen_video = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, VIDEOMODE_BITS, VIDEOMODE_FLAGS))) PROGRAM_EXIT_ERROR("Can't initialize graphic mode");
-	//if (!(screen_video = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16, VIDEOMODE_FLAGS))) PROGRAM_EXIT_ERROR("Can't initialize graphic mode");
-	#ifdef VIDEOMODE_16BITS_TEMP_HACK
-		{
-			SDL_Surface *temp = SDL_CreateRGBSurface(SDL_SWSURFACE, 1, 1, 16, 0x0000F800, 0x000007E0, 0x0000001F, 0x00000000);
-			screen_format = *temp->format;
-			SDL_FreeSurface(temp);
-		}
-	#else
-		screen_format = *screen_video->format;
-	#endif
+	if (!(screen_video = SDL_SetVideoMode(
+#if defined(RETROSTONE)
+	0,	0,
+#else
+	SCREEN_WIDTH, SCREEN_HEIGHT, 
+#endif
+	VIDEOMODE_BITS, VIDEOMODE_FLAGS))) PROGRAM_EXIT_ERROR("Can't initialize graphic mode");
+
+	screen_format = *screen_video->format;
 	pf = screen_video->format;
-	printf("SCREEN_FLAGS(%08X, %08X, %08X, %08X)\n", pf->Rmask, pf->Gmask, pf->Bmask, pf->Amask);
+	
 	if (!(screen = SDL_CreateRGBSurface(SDL_SWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BUFFER_BPP, 0, 0, 0, 0))) PROGRAM_EXIT_ERROR("Can't initialize frame buffer");
-	//if (!(screen = SDL_CreateRGBSurface(SDL_SWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, 16, 0xF000, 0x0F00, 0x00F0, 0x0000))) PROGRAM_EXIT_ERROR("Can't initialize frame buffer");
 	{
 		SDL_Rect r;
 		SDL_Surface *s;
@@ -671,13 +686,10 @@ void sdl_init() {
 	
 	if (TTF_Init() < 0) PROGRAM_EXIT_ERROR("Can't initialize TTF");
 	SDL_InitSubSystem(SDL_INIT_JOYSTICK);
-	SDL_InitSubSystem(SDL_INIT_AUDIO);
 
-	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
-		printf("Can't initialize audio\n");
-	} else {
-		audio_initialized = 1;
-	}
+#ifndef ENABLE_VIDEO_ROQ
+	SDL_Audio_Init();
+#endif
 	
 	if (!(font = TTF_OpenFontRW(SDL_RWFromMem(font_ttf, size_font_ttf), 1, font_height = font_size_corrected))) {
 		PROGRAM_EXIT_ERROR("Invalid FONT_TTF (II)");
@@ -699,24 +711,38 @@ void sdl_init() {
 
 void lang_init() {
 	FILE *f;
-	char temp[512];
+	char temp[512], temp2[512];
 	int n = 0, m, l;
 	
 	if (!strlen(language)) strcpy(language, LANGUAGE_DEFAULT);
 	
 #ifdef GAME_HOME_DIRECTORY
 	snprintf(temp, sizeof(temp), "%s/%s%s/%s.TXT", game_directory, FILE_PREFIX, ALTERNATE_LANG, language);
+	snprintf(temp2, sizeof(temp2), "%s/%s%s/%s.txt", game_directory, FILE_PREFIX, ALTERNATE_LANG, language);
 #else
 	sprintf(temp, "%s%s/%s.TXT", FILE_PREFIX, ALTERNATE_LANG, language);
+	sprintf(temp2, "%s%s/%s.txt", FILE_PREFIX, ALTERNATE_LANG, language);
 #endif
 
-	if (!_file_exists(temp)) {
+	if (_file_exists(temp)) 
+	{
+		if ((f = fopen(temp, "rb")) == NULL) {
+			printf("Can't open '%s'\n", temp);
+			return;
+		}
+	}
+	else if (_file_exists(temp2)) 
+	{
+		if ((f = fopen(temp2, "rb")) == NULL) {
+			printf("Can't open '%s'\n", temp);
+			return;
+		}
+	}
+	else
+	{
 		printf("File '%s' doesn't exists\n", temp);
 		sprintf(temp, "%sLANG/%s.TXT", FILE_PREFIX, language);
-	}
-	if ((f = fopen(temp, "rb")) == NULL) {
-		printf("Can't open '%s'\n", temp);
-		return;
+		return;	
 	}
 
 	while (!feof(f)) {
@@ -832,14 +858,6 @@ void game_init() {
 	for (n = 0; n < interface_next_count; n++) {	
 		prepare_interface_image(&interface_next_clip[n], interface_next_images + n);
 	}
-
-	if (audio_initialized) {
-		if (!(click = Mix_LoadWAV_RW(STREAM_UNCOMPRESS_MEM(click_wav, size_click_wav), 1))) {
-			PROGRAM_EXIT_ERROR("Can't locate 'CLICK_WAV'");
-		} else {
-			printf("Loaded 'CLICK_WAV'\n");
-		}
-	}
 }
 
 int main(int argc, char* argv[]) 
@@ -947,6 +965,7 @@ int main(int argc, char* argv[])
 		snprintf(cs_robo_path, sizeof(cs_robo_path), "%s/%s", game_directory, "cs_rogo"VIDEO_EXTENSION_LOWERCASE);
 		result_movie = MOVIE_PLAY(cs_robo_path, 1);
 	}
+	
 	snprintf(opening_path, sizeof(opening_path), "%s/%s", game_directory, "OPEN"VIDEO_EXTENSION);
 	result_movie = MOVIE_PLAY(opening_path, 1);
 	if (!result_movie)
@@ -960,6 +979,10 @@ int main(int argc, char* argv[])
 #endif
 	MOVIE_END();
 	printf("MOVIE_END();\n");
+	
+#ifdef ENABLE_VIDEO_ROQ
+	SDL_Audio_Init();
+#endif
 
 	KEYS_CLEAR();
 	

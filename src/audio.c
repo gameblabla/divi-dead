@@ -14,7 +14,7 @@ extern DECLSPEC Mix_Music * SDLCALL Mix_LoadMUS_RW(SDL_RWops *rw);
 #endif
 
 void GAME_MUSIC_PLAY(char *name) {
-	char temp[512], temp2[512], temp3[512], music_name[256];
+	char temp[512], music_name[256];
 	char *tempp;
 	
 	//printf("%s\n", save.music);
@@ -51,25 +51,19 @@ void GAME_MUSIC_PLAY(char *name) {
 	#endif
 
 	#ifdef AUDIO_CHECK_MOD
-		//printf("GAME_MUSIC_PLAY(): (5) '%s'\n", save.music);
-		// Using OGG
-		#if defined(GAME_HOME_DIRECTORY)
-		snprintf(temp2, sizeof(temp2), strrchr(save.music, '.') ? "%s/OGG/%s.OGG" : "%s/OGG/%s.MID.OGG", game_directory, music_name);
-		snprintf(temp3, sizeof(temp3), strrchr(save.music, '.') ? "%s/ogg/%s.ogg" : "%s/ogg/%s.mid.ogg", game_directory, save.music);
-		#else
-		snprintf(temp2, sizeof(temp2), strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
-		for (tempp = temp2; (*tempp != '\0'); tempp++) *tempp = toupper(*tempp);
-		snprintf(temp3, sizeof(temp3), strrchr(save.music, '.') ? "%ogg/%s.ogg" : "%ogg/%s.mid.ogg", game_directory, save.music);
-		#endif
-
-		//printf("GAME_MUSIC_PLAY(): (6) '%s'\n", temp2);
-		//printf("GAME_MUSIC_PLAY(): (7)\n");
-		if (_file_exists(temp2)) {
-			snprintf(temp, sizeof(temp), "%s", temp2);
+	snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", game_directory, music_name);
+	if (!_file_exists(temp)) 
+	{
+		snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sogg/%s.ogg" : "%sogg/%s.mid.ogg", game_directory, save.music);
+		if (!_file_exists(temp)) 
+		{
+			snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
+			if (!_file_exists(temp)) 
+			{
+				snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sogg/%s.ogg" : "%sogg/%s.mid.ogg", FILE_PREFIX, save.music);
+			}
 		}
-		else if (_file_exists(temp3)) {
-			snprintf(temp, sizeof(temp), "%s", temp3);
-		}
+	}
 	#endif
 	
 	printf("Loading Music file : '%s'...\n", temp);
