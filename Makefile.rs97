@@ -5,19 +5,20 @@ CXX			= /opt/rs97-toolchain/bin/mipsel-linux-g++
 VIDEO_FORMAT = MPEG
 GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 
-INCLUDES	= -I -Isrc -Isrc/smpeg -IRES
+INCLUDES	= -I. -Isrc -Isrc/smpeg -IRES
 
-DEFINES		= -DENABLE_VIDEO_SMPEG -DRS97
+DEFINES		= -DRS97 -DDISABLE_MIDI -DALSA_SOUND
 
 CFLAGS		= -Ofast -fdata-sections -ffunction-sections -flto -fno-PIC -fno-common -Wall $(INCLUDES) $(DEFINES)
 CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
-LDFLAGS     = -Wl,--as-needed -Wl,--gc-sections -flto -lc -lgcc -lm -lSDL -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lSDL_ttf -lfreetype -lm -lbz2 -lstdc++ -lz -s
+LDFLAGS     = -Wl,--as-needed -Wl,--gc-sections -flto -lc -lgcc -lm -lSDL -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lmpg123 -lSDL_ttf -lfreetype -lm -lbz2 -lstdc++ -lz -s
 
 # Files to be compiled
 SRCDIR 		=  ./src ./RES
 ifeq ($(VIDEO_FORMAT), ROQ)
 DEFINES		+= -DENABLE_VIDEO_ROQ
 SRCDIR 		+= ./src/roq
+LDFLAGS     += -lportaudio
 else
 DEFINES		+= -DENABLE_VIDEO_SMPEG
 SRCDIR 		+= ./src/smpeg ./src/smpeg/video ./src/smpeg/audio
