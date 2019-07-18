@@ -774,9 +774,19 @@ void vfs_init() {
 #else
 	sprintf(temp, "%s%s/%s", FILE_PREFIX, ALTERNATE_LANG, lang_texts[0]);
 #endif
-	if (!_file_exists(temp)) {
+	if (!_file_exists(temp)) 
+	{
+#ifdef GAME_HOME_DIRECTORY
+		snprintf(temp, sizeof(temp), "%s/%s%s/%s", game_directory, FILE_PREFIX, ALTERNATE_LANG_UNDERSCORE, "english.dl1");
+		if (!_file_exists(temp)) 
+		{
+			printf("File '%s' doesn't exists\n", temp);
+			sprintf(temp, "%sLANG/%s", FILE_PREFIX, lang_texts[0]);
+		}
+#else
 		printf("File '%s' doesn't exists\n", temp);
 		sprintf(temp, "%sLANG/%s", FILE_PREFIX, lang_texts[0]);
+#endif
 	}
 	VFS_MOUNT(temp);
 	
@@ -819,7 +829,13 @@ void lang_postinit() {
 	if (strcmp("JAPANESE", language) == 0) {
 		char *font_data;
 		int size;
+#ifdef GAME_HOME_DIRECTORY
+		char temp[512];
+		snprintf(temp, sizeof(temp), "%s/jap.ttf", game_directory);
+		SDL_RWops *f = SDL_RWFromFile(temp, "rb");
+#else
 		SDL_RWops *f = SDL_RWFromFile("jap.ttf", "rb");
+#endif
 		if (f) {
 			size = SDL_RWseek(f, 0, SEEK_END);
 			SDL_RWseek(f, 0, SEEK_SET);
@@ -911,7 +927,13 @@ int main(int argc, char* argv[])
 	if (strcmp("JAPANESE", language) == 0) {
 		char *font_data;
 		int size;
+#ifdef GAME_HOME_DIRECTORY
+		char temp[512];
+		snprintf(temp, sizeof(temp), "%s/jap.ttf", game_directory);
+		SDL_RWops *f = SDL_RWFromFile(temp, "rb");
+#else
 		SDL_RWops *f = SDL_RWFromFile("jap.ttf", "rb");
+#endif
 		if (f) {
 			size = SDL_RWseek(f, 0, SEEK_END);
 			SDL_RWseek(f, 0, SEEK_SET);

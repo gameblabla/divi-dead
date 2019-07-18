@@ -2,12 +2,12 @@
 #include "system_unix.h"
 
 void message(char *format, ...) {
-	char buffer[0x1000];
-	va_list ap;
-	va_start(ap, format);
-	vsprintf(buffer, format, ap);
-	va_end(ap);
 	#ifdef GAME_DEBUG
+		char buffer[0x1000];
+		va_list ap;
+		va_start(ap, format);
+		vsprintf(buffer, format, ap);
+		va_end(ap);
 		printf("DEBUG_MSG: %s\n", buffer);
 	#endif
 }

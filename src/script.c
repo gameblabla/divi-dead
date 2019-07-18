@@ -249,9 +249,19 @@ int GAME_LOAD(int n) {
 	}
 	f = save_buffer_open_load();
 #else
-	if (!(f = SDL_RWFromFile(name, "rb"))) {
+	if (!(f = SDL_RWFromFile(name, "rb"))) 
+	{
+#ifdef HOME_DIRECTORY
+		snprintf(name, sizeof(name), "%s/%s/saves/data%d.dat", getenv("HOME"), SAVE_DIRECTORY_NAME, n);
+		if (!(f = SDL_RWFromFile(name, "rb"))) 
+		{
+			printf("Can't load\n");
+			return 0;
+		}
+#else
 		printf("Can't load\n");
 		return 0;
+#endif
 	}
 #endif
 

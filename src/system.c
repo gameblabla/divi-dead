@@ -40,7 +40,7 @@ void SYS_SAVE_MIN(SDL_RWops *f) {
 }
 
 int SYS_SAVE() {
-	char sys_path[512];
+	char sys_path[256];
 	//int retval;
 	SDL_RWops *f;
 	
@@ -109,7 +109,8 @@ int SYS_LOAD() {
 	//int retval;
 	SDL_RWops *f;
 	unsigned char magic;
-	char sys_path[512];
+	char sys_path[256];
+	char sys_path_underscore[256];
 #ifdef DREAMCAST
 	dc_save_file_load(0, 0, save_buffer, &save_buffer_size);
 	f = save_buffer_open_load();
@@ -117,16 +118,22 @@ int SYS_LOAD() {
 
 #ifdef HOME_DIRECTORY
 	snprintf(sys_path, sizeof(sys_path), "%s/%s/SYS.DAT", getenv("HOME"), SAVE_DIRECTORY_NAME);
+	snprintf(sys_path_underscore, sizeof(sys_path_underscore), "%s/%s/sys.dat", getenv("HOME"), SAVE_DIRECTORY_NAME);
 #else
 	snprintf(sys_path, sizeof(sys_path), SAVE_ROOT "/DATA/SYS.DAT");
+	snprintf(sys_path_underscore, sizeof(sys_path_underscore), SAVE_ROOT "/data/sys.dat");
 #endif
 
-	if (!(f = SDL_RWFromFile(sys_path, "rb"))) {
-		int n;
-		for (n = 0; n < 10; n++) strcpy(save_s.names[n], lang_texts[11]);
-		printf("Can't load system\n");
-		SYS_SAVE();
-		return 0;
+	if (!(f = SDL_RWFromFile(sys_path, "rb"))) 
+	{
+		if (!(f = SDL_RWFromFile(sys_path_underscore, "rb"))) 
+		{
+			int n;
+			for (n = 0; n < 10; n++) strcpy(save_s.names[n], lang_texts[11]);
+			printf("Can't load system\n");
+			SYS_SAVE();
+			return 0;
+		}
 	}
 #endif
 	
