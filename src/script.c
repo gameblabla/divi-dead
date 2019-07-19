@@ -170,8 +170,16 @@ int GAME_SAVE(int n) {
 #endif
 	
 	if (!(f = SDL_RWFromFile(name, "wb"))) {
+#ifdef HOME_DIRECTORY
+	snprintf(name, sizeof(name), "%s/%s/saves/data%d.dat", getenv("HOME"), SAVE_DIRECTORY_NAME, n);
+	if (!(f = SDL_RWFromFile(name, "wb"))) {
+		printf("Can't save\n");
+		return 0;	
+	}
+#else
 		printf("Can't save\n");
 		return 0;
+#endif
 	}
 #endif
 	printf("GAME_SAVE():2\n");
@@ -429,7 +437,7 @@ void GAME_SCRIPT_PROCESS() {
 				#ifdef DEBUG_SCRIPT
 					printf("SAVE_TITLE('%s')\n",s);
 				#endif
-				strcpy(save_title, s);
+				snprintf(save_title, sizeof(save_title), "%s", s); 
 			} break;
 			
 			case 0x06: GAME_SAVE_POSITION_2(); { // OPTION_RESET
