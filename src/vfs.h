@@ -9,7 +9,7 @@
 
 //#define _file_exists debug_file_exists
 //#define _file_exists file_exists
-#define _file_exists rw_file_exists
+#define _file_exists file_exists
 
 extern SDL_RWops *VFS_LOAD(char *name);
 extern FSLI *VFS_FIND(char *name);
