@@ -49,28 +49,42 @@ void GAME_MUSIC_PLAY(char *name) {
 		for (tempp = temp; *tempp; tempp++) if (*tempp >= 'a' && *tempp <= 'z') *tempp = ((*tempp - 'a') + 'A');
 		#endif
 	#endif
-
-	#ifdef AUDIO_CHECK_MOD
-	snprintf(temp, sizeof(temp), "%s/OGG/%s.MID.OGG", game_directory, music_name);
+	
+	#if defined(GAME_HOME_DIRECTORY)
+	char try_filenames[16][24] =
+	{
+		{"%s/OGG/%s.MID.OGG"},
+		{"%s/OGG/%s.mid.ogg"},
+		{"%s/ogg/%s.MID.OGG"},
+		{"%s/ogg/%s.mid.ogg"},
+		{"%s/OGG/%s.OGG"},
+		{"%s/OGG/%s.ogg"},
+		{"%s/ogg/%s.OGG"},
+		{"%s/ogg/%s.ogg"},
+		{"%s/MP3/%s.MID.MP3"},
+		{"%s/MP3/%s.mid.mp3"},
+		{"%s/mp3/%s.MID.MP3"},
+		{"%s/mp3/%s.mid.mp3"},
+		{"%s/MP3/%s.MP3"},
+		{"%s/MP3/%s.mp3"},
+		{"%s/mp3/%s.MP3"},
+		{"%s/mp3/%s.mp3"}
+	};
+	uint32_t i;
+	
+	for(i=0;i<8;i++)
+	{
+		snprintf(temp, sizeof(temp), try_filenames[i], game_directory, music_name);
+		if (_file_exists(temp)) 
+		{
+			break;
+		}
+	}
+	#else
+	snprintf(temp, sizeof(temp), "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
 	if (!_file_exists(temp)) 
 	{
-		snprintf(temp, sizeof(temp),"%s/ogg/%s.mid.ogg", game_directory, save.music);
-		if (!_file_exists(temp)) 
-		{
-			#if defined(GAME_HOME_DIRECTORY)
-			snprintf(temp, sizeof(temp), "%s/OGG/%s.OGG", game_directory, music_name);
-			if (!_file_exists(temp)) 
-			{
-				snprintf(temp, sizeof(temp), "%s/ogg/%s.ogg", game_directory, save.music);
-			}
-			#else
-			snprintf(temp, sizeof(temp), "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
-			if (!_file_exists(temp)) 
-			{
-				snprintf(temp, sizeof(temp), "%sogg/%s.mid.ogg", FILE_PREFIX, save.music);
-			}
-			#endif
-		}
+		snprintf(temp, sizeof(temp), "%sogg/%s.mid.ogg", FILE_PREFIX, save.music);
 	}
 	#endif
 	
