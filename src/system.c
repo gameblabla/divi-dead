@@ -25,11 +25,15 @@ void SYS_SAVE_MIN(SDL_RWops *f) {
 	int n, m, tp;
 	unsigned char gallerybf[19];
 	unsigned char magic = 0xFF;
+	unsigned char f;
 	
-	// Compress gallery
-	memset(gallerybf, 0, sizeof(gallerybf));
+	for(i=0;i<sizeof(gallerybf);i++)
+	{
+		gallerybf[i] = 0;
+	}
+	
 	for (tp = 0, n = 0; n < 150; n += 8, tp++) {
-		unsigned char f = 0;
+		f = 0;
 		for (m = 0; m < 8; m++) if (save_s.gallery[n + m]) f |= (1 << m);
 		gallerybf[tp] = f;
 	}
@@ -40,7 +44,7 @@ void SYS_SAVE_MIN(SDL_RWops *f) {
 }
 
 int SYS_SAVE() {
-	char sys_path[256];
+	char sys_path[512];
 	//int retval;
 	SDL_RWops *f;
 	
@@ -87,9 +91,15 @@ void SYS_LOAD_FULL(SDL_RWops *f) {
 }
 
 void SYS_LOAD_MIN(SDL_RWops *f) {
-	int n, m, tp;
+	int n, m, tp, i
 	unsigned char gallerybf[19];
 	unsigned char magic = 0xFF;
+	unsigned char f;
+	
+	for(i=0;i<sizeof(gallerybf);i++)
+	{
+		gallerybf[i] = 0;
+	}
 	
 	VAR_LOAD_L(&magic, 1);
 	VAR_LOAD_L(save_s.names, sizeof(save_s.names));
@@ -97,7 +107,7 @@ void SYS_LOAD_MIN(SDL_RWops *f) {
 
 	// Compress gallery
 	for (tp = 0, n = 0; n < 150; n += 8, tp++) {
-		unsigned char f = gallerybf[tp];
+		f = gallerybf[tp];
 		for (m = 0; m < 8; m++) {
 			save_s.gallery[n + m] = (f & 1);
 			f >>= 1;
