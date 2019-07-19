@@ -31,25 +31,40 @@ int files_count;
 #endif
 
 int rw_file_exists(char *name) {
+	int exists = 0;
 	SDL_RWops *f = SDL_RWFromFile(name, "rb");
-	if (f) SDL_RWclose(f);
-	return (f != NULL);
+	if (f)
+	{
+		exists = 1;
+		SDL_RWclose(f);
+	}
+	return exists;
 }
 
 int file_exists(char *name) {
+	int exists = 0;
 	FILE *f = fopen(name, "rb");
-	if (f) fclose(f);
-	return (f != NULL);
+	if (f)
+	{
+		exists = 1;
+		fclose(f);
+	}
+	return exists;
 }
 
 int debug_file_exists(char *name) {
+	int exists = 0;
 	SDL_RWops *f;
 	printf("debug_file_exists('%s') 1\n", name);
 	f = SDL_RWFromFile(name, "rb");
 	printf("debug_file_exists('%s') 2\n", name);
-	if (f) SDL_RWclose(f);
+	if (f)
+	{
+		exists = 1;
+		SDL_RWclose(f);
+	}
 	printf("debug_file_exists('%s') 3\n", name);
-	return (f != NULL);
+	return exists;
 }
 
 void VFS_RESET() {

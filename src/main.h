@@ -59,7 +59,7 @@ extern void lang_postinit();
 //#define LANGUAGE_DEFAULT "SPANISH"
 //#define LANGUAGE_DEFAULT "JAPANESE"
 #define LANGUAGE_DEFAULT "ENGLISH"
-#define LANGUAGE_DEFAULT_UNDERSCORE "ENGLISH"
+#define LANGUAGE_DEFAULT_UNDERSCORE "english"
 #define ENABLE_MUSIC 1
 
 #define SAVE_ROOT "."

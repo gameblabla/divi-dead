@@ -51,16 +51,16 @@ void GAME_MUSIC_PLAY(char *name) {
 	#endif
 
 	#ifdef AUDIO_CHECK_MOD
-	snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", game_directory, music_name);
+	snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%s/OGG/%s.OGG" : "%s/OGG/%s.MID.OGG", game_directory, music_name);
 	if (!_file_exists(temp)) 
 	{
-		snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sogg/%s.ogg" : "%sogg/%s.mid.ogg", game_directory, save.music);
+		snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%s/ogg/%s.ogg" : "%s/ogg/%s.mid.ogg", game_directory, save.music);
 		if (!_file_exists(temp)) 
 		{
-			snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sOGG/%s.OGG" : "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
+			snprintf(temp, sizeof(temp), "%sOGG/%s.MID.OGG", FILE_PREFIX, save.music);
 			if (!_file_exists(temp)) 
 			{
-				snprintf(temp, sizeof(temp), strrchr(save.music, '.') ? "%sogg/%s.ogg" : "%sogg/%s.mid.ogg", FILE_PREFIX, save.music);
+				snprintf(temp, sizeof(temp), "%sogg/%s.mid.ogg", FILE_PREFIX, save.music);
 			}
 		}
 	}
@@ -75,7 +75,7 @@ void GAME_MUSIC_PLAY(char *name) {
 
 	if (!LoadFromMusic(temp)) 
 	{
-		printf("Can't play music '%s' from any directory\n", save.music);
+		printf("Can't play music '%s' from any directory\n", temp);
 		return;
 	}
 	
