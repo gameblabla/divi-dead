@@ -72,7 +72,7 @@ void GAME_MUSIC_PLAY(char *name) {
 	};
 	uint32_t i;
 	
-	for(i=0;i<8;i++)
+	for(i=0;i<16;i++)
 	{
 		snprintf(temp, sizeof(temp), try_filenames[i], game_directory, music_name);
 		if (_file_exists(temp)) 
