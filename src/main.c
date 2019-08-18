@@ -628,7 +628,7 @@ void prepare_interface_image(SDL_Rect *rect, SDL_Surface **dest) {
 void SDL_Audio_Init()
 {
 	SDL_InitSubSystem(SDL_INIT_AUDIO);
-	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
+	if (Mix_OpenAudio(48000, AUDIO_S16SYS, 2, 1024) < 0) {
 		printf("Can't initialize audio\n");
 	} else {
 		audio_initialized = 1;

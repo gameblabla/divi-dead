@@ -1,6 +1,6 @@
 #include "script.h"
 
-#define DEBUG_SCRIPT
+//#define DEBUG_SCRIPT
 //#define DEBUG_SCRIPT_FLAGS
 
 ////////////////////////////////////////////////////////////
