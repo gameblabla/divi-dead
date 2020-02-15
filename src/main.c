@@ -19,6 +19,11 @@ KOS_INIT_FLAGS(INIT_DEFAULT);
 
 #include "main.h"
 
+#ifdef JOYSTICK_ENABLED
+#define joy_commit_range 8192
+static uint_fast8_t dpad_input[4] = {0, 0, 0, 0};
+#endif
+
 char game_directory[512];
 
 void lang_postinit();
@@ -61,7 +66,7 @@ SDL_Color black = {0x00, 0x00, 0x00, 0xFF};
 
 Mix_Music *music  = NULL;
 Mix_Chunk *effect = NULL;
-Mix_Chunk *voice = NULL;
+Mix_Chunk *voice_mix = NULL;
 Mix_Chunk *click = NULL;
 TTF_Font *font  = NULL; int font_height  = 0;
 TTF_Font *font2 = NULL; int font2_height = 0;
@@ -292,6 +297,7 @@ void KEYS_CLEAR() {
 }
 
 void KEYS_UPDATE() {
+	int32_t joy_axis[2] = {0, 0};
 	int n;
 	uint32_t ctime = SDL_GetTicks();
 	keys = 0;
@@ -327,10 +333,17 @@ void KEYS_UPDATE() {
 					default: break;
 				}*/
 				switch (event.key.keysym.sym) {
+					#ifndef JOYSTICK_ENABLED
 					case SDLK_UP:     joy_push_keys(+K_UP); break;
 					case SDLK_DOWN:   joy_push_keys(+K_DOWN); break;
 					case SDLK_LEFT:   joy_push_keys(+K_LEFT); break;
 					case SDLK_RIGHT:  joy_push_keys(+K_RIGHT); break;
+					#else
+					case SDLK_UP:     joy_push_keys(+K_UP);  dpad_input[0] = 1; break;
+					case SDLK_DOWN:   joy_push_keys(+K_DOWN); dpad_input[3] = 1; break;
+					case SDLK_LEFT:   joy_push_keys(+K_LEFT); dpad_input[1] = 1; break;
+					case SDLK_RIGHT:  joy_push_keys(+K_RIGHT); dpad_input[2] = 1; break;
+					#endif
 					case BUTTON_A_DEFINE: joy_push_keys(+K_A); break;
 					case BUTTON_B_DEFINE: joy_push_keys(+K_B); break;
 					case BUTTON_C_DEFINE: joy_push_keys(+K_L); break;
@@ -343,10 +356,17 @@ void KEYS_UPDATE() {
 			break;
 			case SDL_KEYUP:
 				switch (event.key.keysym.sym) {
+					#ifndef JOYSTICK_ENABLED
 					case SDLK_UP:     joy_push_keys(-K_UP); break;
 					case SDLK_DOWN:   joy_push_keys(-K_DOWN); break;
 					case SDLK_LEFT:   joy_push_keys(-K_LEFT); break;
 					case SDLK_RIGHT:  joy_push_keys(-K_RIGHT); break;
+					#else
+					case SDLK_UP:     joy_push_keys(-K_UP); dpad_input[0] = 0; break;
+					case SDLK_DOWN:   joy_push_keys(-K_DOWN); dpad_input[3] = 0; break;
+					case SDLK_LEFT:   joy_push_keys(-K_LEFT); dpad_input[1] = 0; break;
+					case SDLK_RIGHT:  joy_push_keys(-K_RIGHT); dpad_input[2] = 0; break;
+					#endif
 					case BUTTON_A_DEFINE: joy_push_keys(-K_A); break;
 					case BUTTON_B_DEFINE: joy_push_keys(-K_B); break;
 					case BUTTON_C_DEFINE: joy_push_keys(-K_L); break;
@@ -356,7 +376,18 @@ void KEYS_UPDATE() {
 					default: break;
 				}			
 			break;
-			#ifndef DREAMCAST
+			#if JOYSTICK_ENABLED
+			case SDL_JOYAXISMOTION:
+			switch (event.jaxis.axis)
+			{
+				case 0: /* X axis */
+					joy_axis[0] = event.jaxis.value;
+				break;
+				case 1: /* Y axis */
+					joy_axis[1] = event.jaxis.value;
+				break;
+			}
+			break;
 			case SDL_JOYBUTTONUP:
 				//printf("SDL_JOYBUTTONUP\n");
 				joybut[event.jbutton.button].pressed = 0;
@@ -419,6 +450,24 @@ void KEYS_UPDATE() {
 			#endif
 		}
 	}
+	
+	#ifdef JOYSTICK_ENABLED
+	if (joy_axis[0] > joy_commit_range) joy_push_keys(+K_RIGHT);
+	else if (joy_axis[0] < -joy_commit_range) joy_push_keys(+K_LEFT);
+	else if (dpad_input[1] == 0 && dpad_input[2] == 0)
+	{
+		joy_push_keys(-K_LEFT);
+		joy_push_keys(-K_RIGHT);
+	}
+		
+	if (joy_axis[1] > joy_commit_range) joy_push_keys(+K_UP);
+	else if (joy_axis[1] < -joy_commit_range) joy_push_keys(+K_DOWN);
+	else if (dpad_input[0] == 0 && dpad_input[3] == 0)
+	{
+		joy_push_keys(-K_UP);
+		joy_push_keys(-K_DOWN);
+	}
+	#endif
 	
 	for (n = 0; n < JOYB_MAX; n++) {
 		if (!joybut[n].pressed) continue;
@@ -966,6 +1015,9 @@ int main(int argc, char* argv[])
 		
 		SDL_JoystickEventState(SDL_ENABLE);
 		SDL_DC_EmulateMouse(0);
+		SDL_JoystickOpen(0);
+	#elif defined(JOYSTICK_ENABLED)
+		SDL_JoystickEventState(SDL_ENABLE);
 		SDL_JoystickOpen(0);
 	#endif
 	

@@ -146,7 +146,7 @@ extern SDL_Color black;
 
 extern Mix_Music *music;
 extern Mix_Chunk *effect;
-extern Mix_Chunk *voice;
+extern Mix_Chunk *voice_mix;
 extern Mix_Chunk *click;
 extern TTF_Font *font;
 extern int font_height;

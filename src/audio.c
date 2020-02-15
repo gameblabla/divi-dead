@@ -154,7 +154,7 @@ void GAME_VOICE_PLAY(char *name) {
 	if (!audio_initialized) return;
 	if (!audio_voice_enabled) return;
 	Mix_Volume(2, volume_voice);
-	GAME_SOUND_PLAY_CH(&voice, name, 2);
+	GAME_SOUND_PLAY_CH(&voice_mix, name, 2);
 }
 
 void GAME_VOICE_STOP() {
@@ -176,11 +176,11 @@ void GAME_SOUND_CLICK() {
 void GAME_SOUND_GC_COLLECT() {
 	if (!audio_initialized) return;
 
-	if (!Mix_Playing(2) && voice) {
+	if (!Mix_Playing(2) && voice_mix) {
 		printf("((GC_voice))");
 		Mix_HaltChannel(2);
-		Mix_FreeChunk(voice);
-		voice = NULL;
+		Mix_FreeChunk(voice_mix);
+		voice_mix = NULL;
 	}
 
 	if (!Mix_Playing(1) && effect) {
