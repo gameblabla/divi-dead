@@ -1,11 +1,9 @@
 #!/bin/sh
 
-mkdir -p ipkg/home/retrofw/games/dividead
-mkdir -p ipkg/home/retrofw/apps/gmenu2x/sections/games
-cp ./DiviDeadRS97.elf ipkg/home/retrofw/games/dividead/dividead
-cp ./RES/DC/icon.png ipkg/home/retrofw/games/dividead/dividead.png
-
-cd ipkg
+mkdir -p opk
+cp ./dividead.elf opk/dividead.elf
+cp ./RES/DC/icon.png opk/icon.png
+cp ./docs/README.txt opk/README.txt
 
 # https://unix.stackexchange.com/questions/219268/how-to-add-new-lines-when-using-echo
 print()
@@ -18,29 +16,17 @@ esac
 
 # Create GmenuNx entry file plus other things
 
-print 'Package: dividead
-Version: 1.0
-Description: Visual novel
-Section: emus
-Priority: optional
-Maintainer: gameblabla
-Architecture: mipsel
-Homepage: https://github.com/gameblabla/divi-dead
-Depends:
-Source: https://github.com/gameblabla/divi-dead' > control
+print '[Desktop Entry]
+Type=Application
+Name=Divi-Dead
+Comment=Divi-Dead Game engine
+Exec=dividead.elf %f
+Icon=icon
+Terminal=false
+Type=Application
+Categories=games;
+X-OD-NeedsDownscaling=false' > opk/default."$1".desktop
 
-print '2.0' > debian-binary
+mksquashfs ./opk dividead_"$1".opk -all-root -noappend -no-exports -no-xattrs
 
-print 'title=Divi-Dead
-description=Visual novel game
-exec=/home/retrofw/games/dividead/dividead
-clock=600
-selectordir=/home/retrofw
-selectorfilter=.dl1,.DL1' > home/retrofw/apps/gmenu2x/sections/games/dividead
-
-tar -czvf control.tar.gz control --owner=0 --group=0
-tar -czvf data.tar.gz home --owner=0 --group=0
-ar rv ../dividead.ipk control.tar.gz data.tar.gz debian-binary
-
-cd ..
-rm -r ipkg
+rm -r opk
