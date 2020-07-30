@@ -38,6 +38,7 @@ extern void PROGRAM_DELAY(uint32_t milli);
 extern void PROGRAM_EXIT_ERROR(char *format, ...);
 extern int process_exit(const SDL_Event *event);
 extern void text_at_base(SDL_Color c_front, SDL_Color c_back, int x, int y, char *buffer, int update);
+extern void text_at_base(SDL_Color c_front, SDL_Color c_back, int x, int y, char *buffer, int update);
 
 extern void lang_postinit();
 

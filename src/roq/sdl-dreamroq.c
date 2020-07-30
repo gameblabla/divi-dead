@@ -75,14 +75,8 @@ static int32_t render_cb(uint16_t buf[], int32_t width, int32_t height, int32_t 
     return ROQ_SUCCESS;
 }
 
-static int32_t data_size = 0;
-static int32_t audio_output_initialized = 0;
-
 static int32_t audio_cb(uint8_t *snd, int32_t samples, int32_t channels)
 {
-    int32_t byte_rate;
-    int32_t i;
-
 #if defined(OSS_SOUND)
 	write(oss_audio_fd, snd, samples );
 #elif defined(ALSA_SOUND)
@@ -260,7 +254,6 @@ static void ROQ_Init_Sound()
 uint_fast8_t MOVIE_PLAY(char *name, int skip)
 {
     int32_t status;
-    int32_t err;
     roq_callbacks_t cbs;
     int32_t bitdepth_check;
     

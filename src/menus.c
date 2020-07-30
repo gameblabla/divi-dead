@@ -85,11 +85,13 @@ int GAME_MENU_SHOW_EX(OPTION_GAME_MENU *menu, int menu_level) {
 			menu_mode = ((keys & K_MODE) != 0);
 		}
 		
+		#ifdef DEBUG_INPUT_OPTIONAL
 		if (joy_check_combination_basic_just(debug_combination)) {
 			message_info("DEBUG_MODE +ON");
 			debug_global = 1;
 			toggle_info = 1;
 		}
+		#endif
 
 		//if ((keys & K_A) || (keys & K_MODE)) {
 		if ((keys & K_A)) {

@@ -1,17 +1,19 @@
 PRGNAME     = dividead.elf
-CC			= /opt/rs97-toolchain/bin/mipsel-linux-gcc
-CXX			= /opt/rs97-toolchain/bin/mipsel-linux-g++
+CC			= /opt/gcw0-toolchain-static/usr/bin/mipsel-linux-gcc
+CXX			= /opt/gcw0-toolchain-static/usr/bin/mipsel-linux-g++
 
+PORT = RG350M
 VIDEO_FORMAT = MPEG
 GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 
 INCLUDES	= -I. -Isrc -Isrc/smpeg -IRES
 
-DEFINES		= -DRS97 -DDISABLE_MIDI -DALSA_SOUND
+DEFINES		= -DGCW0
+DEFINES		+= -DDISABLE_MIDI -DALSA_SOUND
 
-CFLAGS		= -Ofast -fdata-sections -ffunction-sections -flto -fno-PIC -fno-common -Wall $(INCLUDES) $(DEFINES)
+CFLAGS		= -O2 -fdata-sections -ffunction-sections -flto -fno-PIC -fno-common -Wall $(INCLUDES) $(DEFINES)
 CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
-LDFLAGS     = -Wl,--as-needed -Wl,--gc-sections -flto -lc -lgcc -lm -lSDL -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lmpg123 -lSDL_ttf -lfreetype -lm -lbz2 -lstdc++ -lz -s
+LDFLAGS     = -lc -lgcc -ldl -lm -lSDL -lasound -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lmad -lSDL_ttf -lfreetype -lm -lbz2 -lstdc++ -lz  -Wl,--as-needed -Wl,--gc-sections -flto -s
 
 # Files to be compiled
 SRCDIR 		=  ./src ./RES

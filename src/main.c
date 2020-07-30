@@ -275,7 +275,9 @@ void joy_push_keys_pd(int v) {
 	joy_push_keys(-v);
 }
 
+#ifdef DEBUG_INPUT_OPTIONAL
 int debug_combination[6] = { P_D(K_UP), P_D(K_DOWN), P_D(K_LEFT), P_D(K_RIGHT), P_D(K_MODE), 0 };
+#endif
 
 int joy_check_combination_basic(int *ptr) {
 	int *cur = ptr;
@@ -297,7 +299,9 @@ void KEYS_CLEAR() {
 }
 
 void KEYS_UPDATE() {
+	#ifdef JOYSTICK_ENABLED
 	int32_t joy_axis[2] = {0, 0};
+	#endif
 	int n;
 	uint32_t ctime = SDL_GetTicks();
 	keys = 0;
@@ -677,7 +681,7 @@ void prepare_interface_image(SDL_Rect *rect, SDL_Surface **dest) {
 void SDL_Audio_Init()
 {
 	SDL_InitSubSystem(SDL_INIT_AUDIO);
-	if (Mix_OpenAudio(48000, AUDIO_S16SYS, 2, 1024) < 0) {
+	if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
 		printf("Can't initialize audio\n");
 	} else {
 		audio_initialized = 1;
@@ -693,7 +697,6 @@ void SDL_Audio_Init()
 }
 
 void sdl_init() {
-	SDL_PixelFormat *pf;
 	SDL_Init(SDL_INIT_VIDEO);
 	mutex_reading = SDL_CreateMutex();
 	SDL_ShowCursor(0);
@@ -708,8 +711,7 @@ void sdl_init() {
 	VIDEOMODE_BITS, VIDEOMODE_FLAGS))) PROGRAM_EXIT_ERROR("Can't initialize graphic mode");
 
 	screen_format = *screen_video->format;
-	pf = screen_video->format;
-	
+
 	if (!(screen = SDL_CreateRGBSurface(SDL_SWSURFACE, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BUFFER_BPP, 0, 0, 0, 0))) PROGRAM_EXIT_ERROR("Can't initialize frame buffer");
 	{
 		SDL_Rect r;
