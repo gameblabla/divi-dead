@@ -703,12 +703,32 @@ void sdl_init() {
 
 	SDL_WM_SetCaption("Divi Dead SDL", NULL);
 	if (!(screen_video = SDL_SetVideoMode(
-#if defined(RETROSTONE)
+#if defined(DYNAMIC_RESOLUTION)
 	0,	0,
 #else
-	SCREEN_WIDTH, SCREEN_HEIGHT, 
+	SCREEN_WIDTH, SCREEN_HEIGHT,
 #endif
 	VIDEOMODE_BITS, VIDEOMODE_FLAGS))) PROGRAM_EXIT_ERROR("Can't initialize graphic mode");
+
+
+#ifdef ADJUST_FONT_SIZE_DYNAMIC
+	if (screen_video->w < 321)
+	{
+		font_size = 16;
+	}
+	else if (screen_video->w < 641)
+	{
+		font_size = 17;
+	}
+	else if (screen_video->w < 969)
+	{
+		font_size = 18;
+	}
+	else
+	{
+		font_size = 19;
+	}
+#endif
 
 	screen_format = *screen_video->format;
 

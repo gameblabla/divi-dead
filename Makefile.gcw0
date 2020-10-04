@@ -1,19 +1,27 @@
 PRGNAME     = dividead.elf
-CC			= /opt/gcw0-toolchain-static/usr/bin/mipsel-linux-gcc
-CXX			= /opt/gcw0-toolchain-static/usr/bin/mipsel-linux-g++
+CC			= /opt/gcw0-toolchain/usr/bin/mipsel-linux-gcc
+CXX			= /opt/gcw0-toolchain/usr/bin/mipsel-linux-g++
 
-PORT = RG350M
+PORT = OPENDINGUX_JZ4770
 VIDEO_FORMAT = MPEG
+HUGE_PAGES = 1
 GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
 
 INCLUDES	= -I. -Isrc -Isrc/smpeg -IRES
 
-DEFINES		= -DGCW0
+DEFINES		= -DOPENDINGUX_JZ4770
 DEFINES		+= -DDISABLE_MIDI -DALSA_SOUND
 
-CFLAGS		= -O2 -fdata-sections -ffunction-sections -flto -fno-PIC -fno-common -Wall $(INCLUDES) $(DEFINES)
+CFLAGS		= -Ofast -fdata-sections -ffunction-sections -flto -fno-PIC -fno-common -Wall $(INCLUDES) $(DEFINES)
 CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
-LDFLAGS     = -lc -lgcc -ldl -lm -lSDL -lasound -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lmad -lSDL_ttf -lfreetype -lm -lbz2 -lstdc++ -lz  -Wl,--as-needed -Wl,--gc-sections -flto -s
+
+ifeq ($(HUGE_PAGES), 0)
+LDFLAGS		= -nodefaultlibs
+endif
+LDFLAGS     += -lc -lgcc -ldl -lm -lSDL -lasound -lSDL_image -lpng -lSDL_mixer -lmikmod -logg -lvorbisidec -lmad -lSDL_ttf -lfreetype -lm -lstdc++ -lz  -Wl,--as-needed -Wl,--gc-sections -flto -s
+ifeq ($(HUGE_PAGES), 1)
+LDFLAGS		+= -Wl,-zcommon-page-size=2097152 -Wl,-zmax-page-size=2097152 -lhugetlbfs
+endif
 
 # Files to be compiled
 SRCDIR 		=  ./src ./RES
@@ -35,7 +43,10 @@ OBJS		= $(OBJ_C) $(OBJ_CPP)
 # Rules to make executable
 $(PRGNAME): $(OBJS)  
 	$(CC) $(CFLAGS) -std=gnu99 -o $(PRGNAME) $^ $(LDFLAGS)
-	
+ifeq ($(HUGE_PAGES), 1)
+	hugeedit --text --data $(PRGNAME)
+endif
+
 $(OBJ_CPP) : %.o : %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 

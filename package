@@ -25,7 +25,7 @@ Icon=icon
 Terminal=false
 Type=Application
 Categories=games;
-X-OD-NeedsDownscaling=false' > opk/default."$1".desktop
+X-OD-NeedsDownscaling=true' > opk/default."$1".desktop
 
 mksquashfs ./opk dividead_"$1".opk -all-root -noappend -no-exports -no-xattrs
 
