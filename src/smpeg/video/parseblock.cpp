@@ -619,7 +619,7 @@ void ParseReconBlock( int n, VidStream* vid_stream )
 
 void ParseAwayBlock( int n, VidStream* vid_stream )
 {
-  unsigned int diff;
+  unsigned int diff = 0;
   unsigned int size, run;
   int level;
 

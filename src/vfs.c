@@ -43,11 +43,12 @@ int rw_file_exists(char *name) {
 
 int file_exists(char *name) {
 	int exists = 0;
-	FILE *f = fopen(name, "rb");
+	SDL_RWops *f;
+	f = SDL_RWFromFile(name, "rb");
 	if (f)
 	{
 		exists = 1;
-		fclose(f);
+		SDL_RWclose(f);
 	}
 	return exists;
 }

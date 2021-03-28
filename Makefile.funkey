@@ -1,0 +1,48 @@
+PRGNAME     = dividead.elf
+CC			= /opt/funkey-toolchain/usr/bin/arm-linux-gcc
+CXX			= /opt/funkey-toolchain/usr/bin/arm-linux-g++
+
+PORT = FUNKEY
+VIDEO_FORMAT = MPEG
+HUGE_PAGES = 0
+GIT_VERSION := " $(shell git rev-parse --short HEAD || echo unknown)"
+
+INCLUDES	= -I. -Isrc -Isrc/smpeg -IRES
+
+DEFINES		= -DOPENDINGUX_JZ4770
+DEFINES		+= -DDISABLE_MIDI -DALSA_SOUND
+
+CFLAGS		= -O2 -fdata-sections -ffunction-sections -flto -fno-common -Wall $(INCLUDES) $(DEFINES)
+CXXFLAGS	= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++98
+
+LDFLAGS     += -lc -lgcc -ldl -lm -lSDL -lasound -lSDL_image -lpng -ljpeg -lSDL_mixer -lmikmod -logg -lvorbisidec -lmpg123 -lSDL_ttf -lfreetype -lm -lbz2 -lstdc++ -lz  -Wl,--as-needed -Wl,--gc-sections -flto -s
+
+# Files to be compiled
+SRCDIR 		=  ./src ./RES
+ifeq ($(VIDEO_FORMAT), ROQ)
+DEFINES		+= -DENABLE_VIDEO_ROQ
+SRCDIR 		+= ./src/roq
+LDFLAGS     += -lportaudio
+else
+DEFINES		+= -DENABLE_VIDEO_SMPEG
+SRCDIR 		+= ./src/smpeg ./src/smpeg/video ./src/smpeg/audio
+endif
+VPATH		= $(SRCDIR)
+SRC_C		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
+SRC_CPP		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.cpp))
+OBJ_C		= $(notdir $(patsubst %.c, %.o, $(SRC_C)))
+OBJ_CPP		= $(notdir $(patsubst %.cpp, %.o, $(SRC_CPP)))
+OBJS		= $(OBJ_C) $(OBJ_CPP)
+
+# Rules to make executable
+$(PRGNAME): $(OBJS)  
+	$(CXX) $(CXXFLAGS) -std=gnu99 -o $(PRGNAME) $^ $(LDFLAGS)
+
+$(OBJ_CPP) : %.o : %.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+clean:
+	rm -f $(PRGNAME) *.o
+
+clean_all:
+	rm -f $(PRGNAME) *.o RES/*.c RES/*.CHARS RES/SPLASH.JPG RES/END/*.lz

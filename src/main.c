@@ -697,7 +697,7 @@ void SDL_Audio_Init()
 }
 
 void sdl_init() {
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	mutex_reading = SDL_CreateMutex();
 	SDL_ShowCursor(0);
 
@@ -791,8 +791,13 @@ void lang_init() {
 	snprintf(temp, sizeof(temp), "%s/%s%s/%s.TXT", game_directory, FILE_PREFIX, ALTERNATE_LANG, language);
 	snprintf(temp2, sizeof(temp2), "%s/%s%s/%s.txt", game_directory, FILE_PREFIX, ALTERNATE_LANG, language);
 #else
+#ifdef CLASSICMAC
+	sprintf(temp, ":%s%s:%s.TXT", FILE_PREFIX, ALTERNATE_LANG, language);
+	sprintf(temp2, ":%s%s:%s.txt", FILE_PREFIX, ALTERNATE_LANG, language);
+#else
 	sprintf(temp, "%s%s/%s.TXT", FILE_PREFIX, ALTERNATE_LANG, language);
 	sprintf(temp2, "%s%s/%s.txt", FILE_PREFIX, ALTERNATE_LANG, language);
+#endif
 #endif
 
 	if (_file_exists(temp)) 
@@ -1049,6 +1054,7 @@ int main(int argc, char* argv[])
 	
 	game_init();
 
+#ifndef NOMOVIE
 	printf("MOVIE_START();\n");
 	MOVIE_START();
 #ifdef GAME_HOME_DIRECTORY
@@ -1075,6 +1081,7 @@ int main(int argc, char* argv[])
 #endif
 	MOVIE_END();
 	printf("MOVIE_END();\n");
+#endif
 	
 #ifdef ENABLE_VIDEO_ROQ
 	SDL_Audio_Init();

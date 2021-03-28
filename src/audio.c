@@ -50,6 +50,7 @@ void GAME_MUSIC_PLAY(char *name) {
 		#endif
 	#endif
 	
+	#ifndef DISABLE_OGG_MP3
 	#if defined(GAME_HOME_DIRECTORY)
 	char try_filenames[16][24] =
 	{
@@ -86,6 +87,7 @@ void GAME_MUSIC_PLAY(char *name) {
 	{
 		snprintf(temp, sizeof(temp), "%sogg/%s.mid.ogg", FILE_PREFIX, save.music);
 	}
+	#endif
 	#endif
 	
 	printf("Loading Music file : '%s'...\n", temp);

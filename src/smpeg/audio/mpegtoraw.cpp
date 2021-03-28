@@ -81,8 +81,6 @@ void MPEGaudio::initialize()
   static bool initialized = false;
 
   register int i;
-  register REAL *s1,*s2;
-  REAL *s3,*s4;
 
   last_speed = 0;
   stereo = true;
@@ -95,10 +93,6 @@ void MPEGaudio::initialize()
   calcbufferoffset=15;
   currentcalcbuffer=0;
 
-  s1 = calcbufferL[0];
-  s2 = calcbufferR[0];
-  s3 = calcbufferL[1];
-  s4 = calcbufferR[1];
   for(i=CALCBUFFERSIZE-1;i>=0;i--)
   {
     calcbufferL[0][i]=calcbufferL[1][i]=

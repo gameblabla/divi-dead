@@ -1888,8 +1888,8 @@ static int ParseMacroBlock( VidStream* vid_stream )
 {
   int addr_incr;
   unsigned int data;
-  int mask, i, recon_right_for, recon_down_for, recon_right_back,
-      recon_down_back;
+  int mask, i, recon_right_for, recon_down_for, recon_right_back = 0,
+      recon_down_back = 0;
   int zero_block_flag;
   BOOLEAN mb_quant = 0, mb_motion_forw = 0, mb_motion_back = 0, 
       mb_pattern = 0;

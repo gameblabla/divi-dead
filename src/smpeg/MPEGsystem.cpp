@@ -135,6 +135,8 @@ static inline double read_time_code(Uint8 *pointer)
 static inline Uint32 audio_header(Uint8 * pointer, Uint32 * framesize, double * frametime)
 {
   Uint32 layer, version, frequency, bitrate, mode, padding, size;
+  
+  if (!pointer) return 0;
 
   if(((pointer[0] & 0xff) != 0xff) || // No sync bits
      ((pointer[1] & 0xf0) != 0xf0) || //
@@ -954,7 +956,7 @@ double MPEGsystem::TotalTime()
 {
   off_t size, pos;
   off_t file_ptr;
-  Uint8 * buffer, * p;
+  Uint8 * buffer, * p = NULL;
   double time;
 
   /* Lock to avoid concurrent access to the stream */
@@ -1004,9 +1006,9 @@ double MPEGsystem::TotalTime()
     while(p >= MPEG_BUFFER_SIZE + buffer);
 
     /* Extract time info from the first header */
-    Uint32 framesize;
-    double frametime;
-    Uint32 totalsize;
+    Uint32 framesize = 0;
+    double frametime = 0.0;
+    Uint32 totalsize = 0;
 
     audio_header(p, &framesize, &frametime);
     totalsize = TotalSize();
@@ -1147,9 +1149,9 @@ double MPEGsystem::TimeElapsedAudio(int atByte)
     while(p >= MPEG_BUFFER_SIZE + buffer);
 
     /* Extract time info from the first header */
-    Uint32 framesize;
-    double frametime;
-    Uint32 totalsize;
+    Uint32 framesize = 0;
+    double frametime = 0.0;
+    Uint32 totalsize = 0;
 
     audio_header(p, &framesize, &frametime);
     totalsize = TotalSize();
